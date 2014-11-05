@@ -3,7 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add User'); ?></legend>
 	<?php
-		echo $this->Form->input('role');
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('name');
@@ -13,9 +12,6 @@
 		echo $this->Form->input('graduating_date');
 		echo $this->Form->input('hobby');
 		echo $this->Form->input('introduce');
-		echo $this->Form->input('block_flg');
-		echo $this->Form->input('del_flg');
-		echo $this->Form->input('byebye_flag');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
