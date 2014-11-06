@@ -36,6 +36,20 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	?>
 </head>
 <body>
+    <div style="background-color:#fff; color:#333;">
+   <?php
+     if(isset($user)):
+         echo 'Welcome ';
+         echo h($user['name']);
+         echo '! ';
+         echo $this->Html->link('LOGOUT', '/users/logout');
+     else:
+         echo $this->Html->link('LOGIN', '/users/login');
+         echo ' ';
+         echo $this->Html->link('SIGN UP', '/users/register');
+     endif;
+    ?>
+    </div>
 	<div id="container">
 		<div id="header">
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
