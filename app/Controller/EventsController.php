@@ -1,11 +1,11 @@
 <?php
 class EventsController extends AppController{
-	public $uses = array('User','Event');
+	public $uses = array('User','Event','Participant');
 	public $helpers = array('Html', 'Form','Session');
 	public $components = array('Session');
 
 	public function index(){
-		$this->set('events', $this->Event->find('all'));
+            $this->set('events',$this->Event->find('all'));
 	}
 
 	public function detail($id = nuLL){    //このidはeventsのid
@@ -23,6 +23,10 @@ class EventsController extends AppController{
 		$user_id = $event['Event']['user_id'];
 		$hosting = $this->User->findById($user_id);
 		$this->set('hosting',$hosting);
+
+		//participation
+
+
 	}
 
 	public function create(){
