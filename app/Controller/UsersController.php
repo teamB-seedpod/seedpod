@@ -50,8 +50,8 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				//$this->Session->setFlash(__('The user has been saved.'));
+				return $this->redirect(array('action' => 'approval'));
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
@@ -111,5 +111,8 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('Invalid email or password, try again'));
             }
         }
+    }
+
+    public function approval(){
     }
 }

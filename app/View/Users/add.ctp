@@ -1,12 +1,20 @@
 <div class="users form">
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
-		<legend><?php echo __('Add User'); ?></legend>
+		<legend><?php echo __('Sign up'); ?></legend>
 	<?php
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('name');
-		echo $this->Form->input('group_id');
+
+        echo '<div class="input select">';
+        echo '<label>Group</label>';
+        echo $this->Form->select(
+            'group_id',
+            array('1' => 'STUDENT', '2' => 'TEACHER', '3' => 'STAFF'), 
+            array('escape' => false));
+        echo '</div>';
+
 		echo $this->Form->input('birthday');
 		echo $this->Form->input('coming_date');
 		echo $this->Form->input('graduating_date');
