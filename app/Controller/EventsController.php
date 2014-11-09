@@ -1,12 +1,13 @@
 <?php
 class EventsController extends AppController{
-	public $uses = array('User','Event','Participant');
+	public $uses = array('User','Event','Comment','Participant');
 	public $helpers = array('Html', 'Form','Session');
 	public $components = array('Session');
 
 	public function index(){
             $this->set('events',$this->Event->find('all'));
 	}
+
 
 	public function detail($id = nuLL){    //このidはeventsのid
 		if(!$id){
@@ -19,13 +20,32 @@ class EventsController extends AppController{
 		}
 		$this->set('event',$event);
 
-		//hosting名をUsersのtableから引っ張ってくる
+		//hosting名をUsersのtableから引っ張ってくる ←これは非効率なので変えた方がよいかも
 		$user_id = $event['Event']['user_id'];
 		$hosting = $this->User->findById($user_id);
 		$this->set('hosting',$hosting);
 
-		//participation
+		//userテーブルをdetail.ctpに渡す
+		$this->set('users',$this->User->find('all'));
 
+		//イベントに対応するcomment履歴をdetail.ctpに表示する
+		$comments = $this->Comment->getComments($id);
+		$this->set('comments',$comments);
+
+		//commentの処理を行う
+		if($this->request->is('post')){
+			$this->Comment->create();
+			if($this->Comment->save($this->request->data)){
+				$this->Session->setFlash(__('Your comment has been saved.'));
+				return $this->redirect($this->referer());
+			}
+			$this->Session->setFlash(__('Unable to comment.'));
+		}
+
+		//Participantテーブルのidをviewに渡す
+		$participant_id = $this->Participant->getParticipantId($id);
+		$this->set('participant_id',$participant_id);
+		// $participant_id = $participant_id[0]['Participant']['id'];
 
 	}
 
@@ -60,11 +80,12 @@ class EventsController extends AppController{
 			$this->Session->setFlash(__('Unable to update your post.'));
 		}
 
-		//ページにアクセスした際にフォームにデータをセットしておく
+		//editページにアクセスした際にフォームにデータをセットしておく
 		if(!$this->request->data){
 			$this->request->data = $event;
 		}
 	}
+
 
 	public function delete($id){
 		if($this->request->is('get')){
@@ -74,6 +95,115 @@ class EventsController extends AppController{
 		if($this->Event->delete($id)){
 			$this->Session->setFlash(__('The event with id: %s has been deleted.', h($id)));
 			return $this->redirect(array('action' => 'index'));
+		}
+	}
+
+	//コメント投稿を削除するためのメソッド
+	public function delete_comment($id){
+		if($this->request->is('get')){
+			throw new MethodNotAllowException();
+		}
+
+		if($this->Comment->delete($id)){
+			$this->Session->setFlash(__('The comment with id: %s has been deleted.', h($id)));
+			return $this->redirect($this->referer());
+		}
+	}
+
+	//イベントへの参加意志表明
+	public function join($id){  //このidはevent id
+		if($this->request->is('get')){
+			throw new MethodNotAllowException();
+		}
+
+		$participant_id = $this->Participant->getParticipantId($id);
+		$participant_id = $participant_id[0]['Participant']['id'];
+
+		if($participant_id == nuLL){
+			// 登録する内容を設定
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => 1 ,'status' => 2));  //最終的にはAuthを利用する。2は参加。
+			// 登録する項目（フィールド指定）
+			$fields = array('event_id','user_id','status');
+			// 登録
+			$this->Participant->save($data, false, $fields);
+
+			$this->Session->setFlash(__('Your will has been updated.'));
+			return $this->redirect($this->referer());
+		}else{
+			//更新する内容を設定
+			$data = array('Participant' => array('id' => $participant_id, 'status' => 2));
+			// 更新する項目（フィールド指定）
+			$fields = array('status');
+			// 更新
+			$this->Participant->save($data, false, $fields);
+
+			$this->Session->setFlash(__('Your will has been updated.'));
+			return $this->redirect($this->referer());
+		}
+	}
+
+	//イベントへの保留意志表明
+	public function maybe($id){  //このidはevent id
+		if($this->request->is('get')){
+			throw new MethodNotAllowException();
+		}
+
+		$participant_id = $this->Participant->getParticipantId($id);
+		$participant_id = $participant_id[0]['Participant']['id'];
+
+		if($participant_id == nuLL){
+			// 登録する内容を設定
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => 1 ,'status' => 3));  //最終的にはAuthを利用する。3は保留。
+			// 登録する項目（フィールド指定）
+			$fields = array('event_id','user_id','status');
+			// 登録
+			$this->Participant->save($data, false, $fields);
+
+			$this->Session->setFlash(__('Your will has been updated.'));
+			return $this->redirect($this->referer());
+		}else{
+			//更新する内容を設定
+			$data = array('Participant' => array('id' => $participant_id, 'status' => 3));
+			// 更新する項目（フィールド指定）
+			$fields = array('status');
+			// 更新
+			$this->Participant->save($data, false, $fields);
+
+			$this->Session->setFlash(__('Your will has been updated.'));
+			return $this->redirect($this->referer());
+		}
+	}
+
+
+	//イベントへの欠席意志表明
+	public function decline($id){  //このidはevent id
+		if($this->request->is('get')){
+			throw new MethodNotAllowException();
+		}
+
+		$participant_id = $this->Participant->getParticipantId($id);
+		$participant_id = $participant_id[0]['Participant']['id'];
+
+		if($participant_id == nuLL){
+			// 登録する内容を設定
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => 1 ,'status' => 4));  //最終的にはAuthを利用する。4は欠席。
+			// 登録する項目（フィールド指定）
+			$fields = array('event_id','user_id','status');
+			// 登録
+			$this->Participant->save($data, false, $fields);
+
+			$this->Session->setFlash(__('Your will has been updated.'));
+			return $this->redirect($this->referer());
+		}else{
+			//更新する内容を設定
+			$data = array('Participant' => array('id' => $participant_id, 'status' => 4));
+			// 更新する項目（フィールド指定）
+			$fields = array('status');
+			// 更新
+			$this->Participant->save($data, false, $fields);
+
+			$this->Session->setFlash(__('Your will has been updated.'));
+			return $this->redirect($this->referer());
 		}
 	}
 
