@@ -19,24 +19,9 @@ class Event extends AppModel{
 
 	//events(1つ)にparticipants(多数)をhasmanyでアソシエーションする
 	public $hasMany = array(
-		'Participant' => array(     //このPostはエイリアスなので別名でもよい
+		'Participant' => array(
 		'className'  => 'Participant',
 		'foreignKey' => 'event_id',
 		)
 	);
-
-
-    // public function getHostingsWithCategory($id)
-    // {
-    // 	//postsデータの初期化
-    // 	$hosging = array();
-    // 	//データの取得
-    // 	$hosting = $this->findById($id);  //ここ確認する！dataじゃだめなの？
-    // 	return $hosting;
-    // }
-
-
-
-
-
 }

@@ -13,10 +13,6 @@
 	</tr>
 
 	<!-- ここから、$list配列をループして、イベントの情報をリストで表示 -->
-
-	<?php var_dump($events) ?>
-
-
 	<?php foreach($events as $event): ?>
 	<tr>
 		<td><?php echo $this->Html->link($event['Event']['title'],array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
