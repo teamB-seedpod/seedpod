@@ -40,7 +40,7 @@ class AppController extends Controller {
                         'fields' => array('username' => 'email', 'password' => 'password')
                 )
             ),
-            'loginRedirect' => array('controller' => 'users', 'action' => 'index'), //あとで直す
+            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authorize' => array('Controller') 
         )
@@ -51,6 +51,6 @@ class AppController extends Controller {
 
     public function beforeFilter(){
         $this->Auth->allow();
-        $this->set('user', $this->Auth->user()); //issetで分岐しなくていい?
+        $this->set('user', $this->Auth->user());
     }
 }
