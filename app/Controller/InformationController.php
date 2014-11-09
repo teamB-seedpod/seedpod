@@ -34,19 +34,30 @@ class InformationController extends AppController{
 		}
 	}
 
-	//public function edit($id = null){
-	//	$this->Post->id = $id;
-	//	if($this->request->is('get')){
-	//		$this->request->data = $this->Information->read();
-	//	}else{
-	//		if($this->Information->save($this->request->data)){
-	//			$this->Session->setFlash('success!');
-	//			$this->redirect(array('action' => 'index'));
-	//		}else{
-	//			$this->Session->setFlash('failed!');
-	//		}
-	//	}
-	//}
+	public function edit($id = null){
+		$this->Information->id = $id;
+		if($this->request->is('get')){
+			$this->request->data = $this->Information->read();
+		}else{
+			if($this->Information->save($this->request->data)){
+				$this->Session->setFlash('success!');
+				$this->redirect(array('action' => 'index'));
+			}else{
+				$this->Session->setFlash('failed!');
+			}
+		}
+	}
+
+	public function delete($id){
+		$this->Information->id = $id;
+		if($this->request->is('get')){
+			throw new MethodNotAllowedException();
+		}
+		if($this->Information->delete($id)){
+			$this->Session->setFlash('Deleted!');
+			$this->redirect(array('action'=>'index'));
+		}
+	}
 
 
 
