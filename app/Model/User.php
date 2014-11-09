@@ -1,9 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * User Model
- *
- */
+App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+
 class User extends AppModel {
 
     public $validate = array(
@@ -25,7 +23,7 @@ class User extends AppModel {
         )
     ); 
 
-    public $actsAs = array(
+    public $actsAs = array( //Profile Picture Setting
         'UploadPack.Upload' => array(
             'img' => array(
                 'quality' => 95,
@@ -35,4 +33,14 @@ class User extends AppModel {
             )
         ),
     );
+
+    public function beforeSave($options = array()) { //Password Hasher
+        if (isset($this->data[$this->alias]['password'])) {
+            $passwordHasher = new SimplePasswordHasher();
+            $this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);
+        }
+        return true;
+    }
+
 }
+

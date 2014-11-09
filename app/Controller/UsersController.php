@@ -25,7 +25,6 @@ class UsersController extends AppController {
 	public function index() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
-     
 	}
 
 /**
@@ -115,6 +114,16 @@ class UsersController extends AppController {
         }
     }
 
-    public function approval(){
+    public function logout(){
+        $this->Auth->logout();
+        $this->redirect($this->Auth->redirect());
+    }
+
+    public function approval() { 
+        if ($this->Auth->user()) {
+           
+        } else {
+            //not allow
+        }
     }
 }

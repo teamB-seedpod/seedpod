@@ -40,12 +40,20 @@ class AppController extends Controller {
                         'fields' => array('username' => 'email', 'password' => 'password')
                 )
             ),
-            'loginRedirect' => array('controller' => 'users', 'action' => 'index'), //あとで直す
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'display', 'home')
+            'loginRedirect' => array('controller' => 'users', 'action' => 'index'), //it will be repaired after home exists 
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'authorize' => array('Controller') 
         )
     );
 
+    public function isAuthorized($user) {
+    }
+
     public function beforeFilter(){
-        $this->Auth->allow();
+        $this->Auth->allow(); 
+        if ($this->Auth->user()) {
+            $loginUser = $this->Auth->user();
+            $this->set('loginUser', $loginUser); //Does it need [isset]?
+        }
     }
 }
