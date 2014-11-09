@@ -15,7 +15,7 @@ class UsersController extends AppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
-    public  $helpers = array('UploadPack.Upload');
+    public $helpers = array('UploadPack.Upload');
 
 /**
  * index method
@@ -25,6 +25,7 @@ class UsersController extends AppController {
 	public function index() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
+     
 	}
 
 /**
