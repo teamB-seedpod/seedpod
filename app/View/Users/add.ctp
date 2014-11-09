@@ -1,5 +1,5 @@
 <div class="users form">
-<?php echo $this->Form->create('User'); ?>
+<?php echo $this->Form->create('User', array('type' => 'file')); ?>
 	<fieldset>
 		<legend><?php echo __('Sign up'); ?></legend>
 	<?php
@@ -14,6 +14,8 @@
             array('1' => 'STUDENT', '2' => 'TEACHER', '3' => 'STAFF'), 
             array('escape' => false));
         echo '</div>';
+
+        echo $this->Form->input('img',array('type'=>'file','label'=>'picture'));
 
 		echo $this->Form->input('birthday');
 		echo $this->Form->input('coming_date');

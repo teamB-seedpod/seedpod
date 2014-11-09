@@ -6,28 +6,14 @@ App::uses('AppModel', 'Model');
  */
 class User extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
-	// public $displayField = 'name';
-
-/**
- * Validation rules
- *
- * @var array
- */
-	//public $validate = array(
-		//'role' => array(
-			//'q' => array(
-				//'rule' => array('q'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			//),
-		//),
-	//);
+    var $actsAs = array(
+        'UploadPack.Upload' => array(
+            'img' => array(
+                'quality' => 95,
+                'styles' => array(
+                    'thumb' => '85x85'
+                )
+            )
+        ),
+    );
 }
