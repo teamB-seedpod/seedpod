@@ -17,15 +17,21 @@
 	echo '</br></br>';
 
 	//当該イベントへの当該ユーザーのstatusを反映させる
-	$participant_status = $participant_id[0]['Participant']['status'];
-	if($participant_status == 1){
-		echo '<h3>'.'　　★You\'re invited this Event!★'.'</h3>';
-	}else if($participant_status == 2){
-		echo '<h3>'.'　　★You\'re going to "join" this Event★'.'</h3>';
-	}else if($participant_status == 3){
-		echo '<h3>'.'　　★Your status is "Maybe"★'.'</h3>';
-	}else if($participant_status == 4){
-		echo '<h3>'.'　　★You\'re going to "decline" this Event★'.'</h3>';
+	if(isset($participant_id[0]['Participant']['status'])){
+		$participant_status = $participant_id[0]['Participant']['status'];
+
+		// $participant_status = $participant_id[0]['Participant']['status'];
+		if($participant_status == 1){
+			echo '<h3>'.'　　★You\'re invited this Event!★'.'</h3>';
+		}else if($participant_status == 2){
+			echo '<h3>'.'　　★You\'re going to "join" this Event★'.'</h3>';
+		}else if($participant_status == 3){
+			echo '<h3>'.'　　★Your status is "Maybe"★'.'</h3>';
+		}else if($participant_status == 4){
+			echo '<h3>'.'　　★You\'re going to "decline" this Event★'.'</h3>';
+		}else{
+			echo '<h3>'.'　　Something is wrong'.'</h3>';	//これはべつになくてもいいかも
+		}
 	}else{
 		echo '<h3>'.'　　★Please express your will★'.'</h3>';
 	}
@@ -135,7 +141,7 @@ foreach($comments as $comment){
 	echo $this->Form->input('comment',array('type' => 'detail','placeholder' => 'Please comment'));
 	echo $this->Form->input('event_id',array('type' => 'hidden','value' => $event_id));
 	echo $this->Form->input('created', array('type' => 'hidden','value' => $nowtime));
-	echo $this->Form->input('user_id', array('type' => 'id','value' => '1'));  //最終的にはhiddenにして、値を$userにする(Authの機能)
+	echo $this->Form->input('user_id', array('type' => 'hidden','value' => '1'));  //最終的にはhiddenにして、値を$userにする(Authの機能)
 	echo $this->Form->end('Add');
 ?>
 

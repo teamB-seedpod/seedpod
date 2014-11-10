@@ -6,7 +6,8 @@ class Event extends AppModel{
 		'title' => array('rule' => 'notEmpty'),
 		'open_datetime' => array('rule' => 'notEmpty'),
 		'place' => array('rule' => 'notEmpty'),
-		'detail' => array('rule' => 'notEmpty')
+		'detail' => array('rule' => 'notEmpty'),
+		'user_id' => array('rule' => 'notEmpty')		
 	);
 
 	//events(多数)にusers(1つ)をbelongstoでアソシエーションする
