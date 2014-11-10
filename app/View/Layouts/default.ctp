@@ -59,7 +59,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</p>
 		</div>
 	</div>
-	<?php  echo $this->element('sql_dump'); ?>
+
+	
 <script>
 $(function(){
 	setTimeout(function(){
