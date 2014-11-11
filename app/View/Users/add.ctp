@@ -6,7 +6,8 @@
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('name');
-
+        echo $this->Form->input('nickname');
+        
         echo $this->Form->input(
             'group_id',
             array(
@@ -52,7 +53,8 @@
 
 		echo $this->Form->input('hobby');
 
-		echo $this->Form->input('introduce',
+        echo $this->Form->input(
+            'introduce',
             array(
                 'type' => 'textarea'
             )

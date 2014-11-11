@@ -10,10 +10,18 @@
     word-wrap: break-word;
 }
 
+.col3 p {
+    margin-bottom: 7px;
+}
+
 .pic {
     text-align: center;
 }
 
+.birthday .graduating_date {
+    font-size: 10px;
+}
+
 .nickname {
-    
+    font-size: 20px; 
 }

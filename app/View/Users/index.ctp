@@ -28,18 +28,18 @@
         <p class="group">
         <?php
         if ($user['User']['group_id'] == '1') { 
-            echo 'STUDENT';
+            echo '<font color="blue">STUDENT</font>';
         } else if ($user['User']['group_id'] == '2'){
-            echo 'TEACHER';
+            echo '<font color="red">TEACHER</font>';
         } else if ($user['User']['group_id'] == '3'){
-            echo 'STAFF';
+            echo '<font color="green">STAFF</font>';
         } 
         ?>
         </p>
 
-        <p class="birthday"><?php echo h($user['User']['birthday']); ?></p>
-        <p class="graduating_date"><?php echo h($user['User']['graduating_date']); ?></p>
-        <p class="hobby"><?php echo h($user['User']['hobby']); ?></p>
+        <p class="birthday">BIRTHDAY: <?php echo h($user['User']['birthday']); ?></p>
+        <p class="graduating_date">GRADUATE: <?php echo h($user['User']['graduating_date']); ?></p>
+        <p class="hobby">HOBBY: <?php echo h($user['User']['hobby']); ?></p>
         <p class="introduce"><?php echo h($user['User']['introduce']); ?></p>
     </div>
     </a>

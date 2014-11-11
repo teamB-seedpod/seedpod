@@ -14,6 +14,9 @@ class User extends AppModel {
         'name' => array(
             'rule' => 'notEmpty'
         ),
+        'nickname' => array(
+            'rule' => 'notEmpty'
+        ),
         'group_id' => array(
             'rule' => 'notEmpty'
         ),
