@@ -35,7 +35,8 @@ class User extends AppModel {
                 'quality' => 95,
                 'styles' => array(
                     'thumb' => '85x85'
-                )
+                ),
+                'default_url' => '/img/noimage.gif'
             )
         )
     );
