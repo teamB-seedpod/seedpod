@@ -1,52 +1,56 @@
 <div class="users index">
-	<h2><?php echo __('Users'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('role'); ?></th>
-			<th><?php echo $this->Paginator->sort('email'); ?></th>
-			<th><?php echo $this->Paginator->sort('password'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('group_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('birthday'); ?></th>
-			<th><?php echo $this->Paginator->sort('coming_date'); ?></th>
-			<th><?php echo $this->Paginator->sort('graduating_date'); ?></th>
-			<th><?php echo $this->Paginator->sort('hobby'); ?></th>
-			<th><?php echo $this->Paginator->sort('introduce'); ?></th>
-			<th><?php echo $this->Paginator->sort('block_flg'); ?></th>
-			<th><?php echo $this->Paginator->sort('del_flg'); ?></th>
-			<th><?php echo $this->Paginator->sort('byebye_flag'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
+    <h2><?php echo 'Nexseed Members!! Now total '.$total.' people!!' ?></h2>
+    
+    <?php
+        echo $this->Form->create('Sort');
+        echo $this->Form->input(
+            'group_id',
+            array(
+                'options' => array(
+                    '0' => 'ALL',
+                    '1' => 'STUDENT',
+                    '2' => 'TEACHER',
+                    '3' => 'STAFF'
+                ),
+            )
+        );
+        echo $this->Form->end(__('Filter'));
+    ?>
+
 	<?php foreach ($users as $user): ?>
-	<tr>
-        <td><?php echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb')) ?></td>
-		<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['group_id']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['birthday']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['coming_date']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['graduating_date']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['hobby']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['introduce']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $user['User']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $user['User']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $user['User']['id']), array(), __('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
+<?php $user['User']['id'] ?>
+    <a href="/seedpod/users/view/<?php echo $user['User']['id'] ?>">
+    <div class="col3">
+        <p class="pic"><?php echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb')) ?></p>
+        <p class="nickname"><?php echo h($user['User']['nickname']); ?></p>
+        <p class="name"><?php echo h($user['User']['name']); ?></p>
+
+        <p class="group">
+        <?php
+        if ($user['User']['group_id'] == '1') { 
+            echo 'STUDENT';
+        } else if ($user['User']['group_id'] == '2'){
+            echo 'TEACHER';
+        } else if ($user['User']['group_id'] == '3'){
+            echo 'STAFF';
+        } 
+        ?>
+        </p>
+
+        <p class="birthday"><?php echo h($user['User']['birthday']); ?></p>
+        <p class="graduating_date"><?php echo h($user['User']['graduating_date']); ?></p>
+        <p class="hobby"><?php echo h($user['User']['hobby']); ?></p>
+        <p class="introduce"><?php echo h($user['User']['introduce']); ?></p>
+    </div>
+    </a>
+
+    <?php endforeach; ?>
+
+    <div style="clear:both; padding-top:30px;"></div>
+
+    <?php
+        echo $this->Paginator->counter(array('format' => 'TOTAL:{:count} | SHOWING:{:current} | ' ));
+        echo $this->Paginator->counter(array('format' => 'PAGE:{:page}/{:pages}'));
 	?>	</p>
 	<div class="paging">
 	<?php
@@ -55,6 +59,7 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
+
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

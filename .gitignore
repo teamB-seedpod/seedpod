@@ -1,5 +1,7 @@
 .DS_Store
 *.swp
+*.swn
+*.swo
 app/tmp/*
 sftp-config.json
 app/webroot/upload/*
