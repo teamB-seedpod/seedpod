@@ -37,8 +37,9 @@
         ?>
         </p>
 
-        <p class="birthday">BIRTHDAY: <?php echo h($user['User']['birthday']); ?></p>
-        <p class="graduating_date">GRADUATE: <?php echo h($user['User']['graduating_date']); ?></p>
+        <?php list($year, $mon, $day) = explode('-', $user['User']['birthday']) ?>
+        <p class="birthday">BIRTHDAY: <?php echo date('M.d', strtotime($user['User']['birthday'])); ?></p>
+        <p class="graduating_date">GRADUATE: <?php echo date('M.d.Y', strtotime($user['User']['graduating_date']))?></p>
         <p class="hobby">HOBBY: <?php echo h($user['User']['hobby']); ?></p>
         <p class="introduce"><?php echo h($user['User']['introduce']); ?></p>
     </div>
@@ -61,9 +62,4 @@
 	</div>
 
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
+
