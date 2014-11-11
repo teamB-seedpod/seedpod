@@ -8,6 +8,7 @@
 
 			echo $this->Html->link('Edit', array('action'=>'edit', $Info['Information']['id']));
 			echo '  ';
+
 			echo $this->Form->postLink('Delete', array('action'=>'delete', $Info['Information']['id']),
 				array('confirm'=>'sure?'));
 			echo '  ';
@@ -40,24 +41,51 @@
 
 		$currenttime = time();
 
-		$timeend_birthday = mktime(0, 0, 0, $mon, $day, $currentYear);
-		$timestart_birthday = $timeend_birthday -604800;
+		$SubBirthday = mktime(0, 0, 0, $mon, $day, $currentYear);
 
-		if($currentMonth == $mon && $currentDay == $day){
-			echo '<li>';
-			echo 'Today is '.$Username.'\'s Birthday';
-			echo '</li>';
-		};
-
-		if($currenttime >= $timestart_birthday && $currenttime <= $timeend_birthday){
-			echo '<li>';
-			echo $day.'/'.$mon.' is '.$Username.'\'s Birthday';
-			echo '</li>';
-		};
+		$Birthdays[] = array(
+		
+				"Tanjyoubi" => $SubBirthday,
+				"namae" => $Username,
+		);
 
 	?>
-	
+
 	<?php endforeach; ?>
+
+	<?php
+
+		foreach ($Birthdays as $key => $value) {
+			$data[$key] = $value['Tanjyoubi'];
+		}
+
+		$hoge = array_multisort($data, SORT_ASC, $Birthdays);
+	
+		for ($i = 0; $i < count($Birthdays); $i++) {		
+		 // echo'<li>';
+			$Birthdate = date("Y-m-d", $Birthdays[$i]['Tanjyoubi']);
+			list($year, $mon, $day) = explode("-", $Birthdate); 
+		
+			$BirthdayPersonName = $Birthdays[$i]['namae'];
+			//echo'</li>';
+			$timeend_birthday = mktime(0, 0, 0, $mon, $day, $currentYear);
+			$timestart_birthday = $timeend_birthday -604800;
+		
+			if($currentMonth == $mon && $currentDay == $day) {
+					echo '<li>';
+					echo 'Today is '.$BirthdayPersonName.'\'s Birthday';
+					echo '</li>';
+			};
+		
+			if($currenttime >= $timestart_birthday && $currenttime <= $timeend_birthday) {
+					echo '<li>';
+					echo $day.'/'.$mon.' is '.$BirthdayPersonName.'\'s Birthday';
+					echo '</li>';
+			};
+		
+		}
+	
+	?>
 
 	<?php foreach ($UsersInformation as $UserInfo) :?>
 
@@ -88,4 +116,12 @@
 	<?php endforeach; ?>
 
 </ul>
+
+
+
+
+
+
+
+
 
