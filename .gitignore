@@ -2,6 +2,7 @@
 *.swp
 *.swn
 *.swo
+*.swm
 app/tmp/*
 sftp-config.json
 app/webroot/upload/*
