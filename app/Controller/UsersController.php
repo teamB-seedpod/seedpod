@@ -15,6 +15,7 @@ class UsersController extends AppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
+    public $helpers = array('UploadPack.Upload');
 
 /**
  * index method
@@ -50,8 +51,7 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'approval'));
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
@@ -118,4 +118,11 @@ class UsersController extends AppController {
         $this->redirect($this->Auth->redirect());
     }
 
+    public function approval() { 
+        if ($this->Auth->user()) {
+           
+        } else {
+            //not allow
+        }
+    }
 }
