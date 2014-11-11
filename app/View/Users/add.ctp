@@ -7,7 +7,8 @@
 		echo $this->Form->input('password');
 		echo $this->Form->input('name');
 
-        echo $this->Form->input('group_id',
+        echo $this->Form->input(
+            'group_id',
             array(
                 'label' => 'Group',
                 'options' => array(
@@ -18,30 +19,34 @@
             )
         );
 
-        echo $this->Form->input('img',
+        echo $this->Form->input(
+            'img',
             array(
-                'type'=>'file',
-                'label'=>'Picture'
+                'type' => 'file',
+                'label' => 'Picture'
             )
         );
 
-        echo $this->Form->input('birthday',
+        echo $this->Form->input(
+            'birthday',
             array(
-                'minYear'=>date('Y')-80,
-                'maxYear'=>date('Y')
+                'minYear' => date('Y') - 80,
+                'maxYear' => date('Y')
             )
         );
 
-		echo $this->Form->input('coming_date',
+		echo $this->Form->input(
+            'coming_date',
             array(
-                'minYear'=>date('Y')-20,
-                'maxYear'=>date('Y')+20
+                'minYear' => date('Y') - 20,
+                'maxYear' => date('Y') + 20
             )               
         );
-		echo $this->Form->input('graduating_date',
+		echo $this->Form->input(
+            'graduating_date',
             array(
-                'minYear'=>date('Y')-20,
-                'maxYear'=>date('Y')+20
+                'minYear' => date('Y') - 20,
+                'maxYear' => date('Y') + 20
             )
         );
 

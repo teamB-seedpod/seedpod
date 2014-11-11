@@ -23,7 +23,10 @@ class User extends AppModel {
         )
     ); 
 
-    public $actsAs = array( //Profile Picture Setting
+/**
+ * 画像アップロード機能の設定
+ */
+    public $actsAs = array(
         'UploadPack.Upload' => array(
             'img' => array(
                 'quality' => 95,
@@ -31,10 +34,14 @@ class User extends AppModel {
                     'thumb' => '85x85'
                 )
             )
-        ),
+        )
     );
 
-    public function beforeSave($options = array()) { //Password Hasher
+/**
+ * データベース保存前に呼ばれる処理
+ * ・Passwordを暗号化
+ */
+    public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
             $passwordHasher = new SimplePasswordHasher();
             $this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);

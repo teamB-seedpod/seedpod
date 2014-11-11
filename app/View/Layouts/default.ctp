@@ -46,7 +46,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
      else:
          echo $this->Html->link('LOGIN', '/users/login');
          echo ' ';
-         echo $this->Html->link('SIGN UP', '/users/register');
+         echo $this->Html->link('SIGN UP', '/users/add');
      endif;
     ?>
     </div>
