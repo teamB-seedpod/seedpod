@@ -1,3 +1,6 @@
+<?php echo $this->Html->css('event'); ?>
+
+<?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?>
 <h2><?php echo h($event['Event']['title']); ?></h2>
 <?php
 	echo $this->Form->postLink(
@@ -14,13 +17,12 @@
 		        'Decline',
 	            array('action' => 'decline', $event['Event']['id'])
 	            );
-	echo '</br></br>';
+	echo '<br /><br />';
 
 	//当該イベントへの当該ユーザーのstatusを反映させる
-	if(isset($participant_id[0]['Participant']['status'])){
-		$participant_status = $participant_id[0]['Participant']['status'];
+	if(isset($participants[0]['Participant']['status'])){
+		$participant_status = $participants[0]['Participant']['status'];
 
-		// $participant_status = $participant_id[0]['Participant']['status'];
 		if($participant_status == 1){
 			echo '<h3>'.'　　★You\'re invited this Event!★'.'</h3>';
 		}else if($participant_status == 2){
@@ -37,88 +39,44 @@
 	}
 ?>
 
-<HR></br>
+<hr><br />
 <dt>Date：</dt>
-	<dd><?php echo h($event['Event']['open_datetime']); ?></dd>
+	<dd><?php echo h(substr($event['Event']['open_datetime'],0,16)); ?>〜<?php echo h(substr($event['Event']['close_datetime'],0,16)); ?></dd>
 <dt>Hosting：</dt>
 <dd><?php echo h($hosting['User']['name']); ?></dd>
 <dt>Place：</dt>
 	<dd><?php echo h($event['Event']['place']); ?></dd>
 <dt>Detail：</dt>
 	<dd><?php echo h($event['Event']['detail']); ?></dd>
-<HR></br>
-<dt>Join List：</dt>
+<hr><br />
+<dt>Join(<?php echo count($join_info); ?>):</dt>
 	<dd>
 		<?php 
-			$count=0;
-			for($i=0; $i<count($event['Participant']); $i++){
-				if($event['Participant'][$i]['status'] == 2){
-					//イベント参加予定のuser_idを出す
-					$id = h($event['Participant'][$i]['user_id']);
-														
-					//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
-					foreach($users as $user){
-						$user_id = h($user['User']['id']);
-						if($user_id == $id){
-							echo h($user['User']['name'])."　";
-						}
-					}
-					$count++;
-				}
+			foreach($join_info as $join){
+				echo h($join['User']['name']).'　';
 			}
-			echo "   (".$count."people)";			
 		?>
 	</dd>
-<dt>Maybe List：</dt>
+<dt>Maybe(<?php echo count($maybe_info); ?>):</dt>
 	<dd>
 		<?php 
-			$count=0;
-			for($i=0; $i<count($event['Participant']); $i++){
-				if($event['Participant'][$i]['status'] == 3){
-					//イベント参加予定のuser_idを出す
-					// / echo h($event['Participant'][$i]['user_id'])."】";
-					$id = h($event['Participant'][$i]['user_id']);
-													
-					//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。
-					foreach($users as $user){
-						$user_id = h($user['User']['id']);
-						if($user_id == $id){
-							echo h($user['User']['name'])."　";
-						}
-					}
-					$count++;
-				}
+			foreach($maybe_info as $maybe){
+				echo h($maybe['User']['name']).'　';
 			}
-			echo "   (".$count."people)";
 		?>
 	</dd>
-<dt>Invited List：</dt>
+<dt>Invited(<?php echo count($invited_info); ?>):</dt>
 	<dd>
 		<?php 
-			$count=0;
-			for($i=0; $i<count($event['Participant']); $i++){
-				if($event['Participant'][$i]['status'] == 1){
-					//イベント参加予定のuser_idを出す
-					// / echo h($event['Participant'][$i]['user_id'])."】";
-					$id = h($event['Participant'][$i]['user_id']);
-						
-					//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。
-					foreach($users as $user){
-						$user_id = h($user['User']['id']);
-						if($user_id == $id){
-							echo h($user['User']['name'])."　";
-						}
-					}
-					$count++;
-				}
+			foreach($invited_info as $invited){
+				echo h($invited['User']['name']).'　';
 			}
-			echo "   (".$count."people)";
 		?>
 	</dd>
-<HR>
+<hr>
 
 <!-- コメント機能の実装 -->
-</br><dt>Comments：</dt></br>
+<br /><dt>Comments：</dt><br />
 <?php
 sort($comments);
 foreach($comments as $comment){
@@ -130,7 +88,7 @@ foreach($comments as $comment){
             array('action' => 'delete_comment', $comment['Comment']['id']),
             array('confirm' => 'Are you sure?')
             );
-	echo "</br>";
+	echo "<br />";
 }
 ?>
 
@@ -138,45 +96,13 @@ foreach($comments as $comment){
 	$nowtime = date("Y-m-d H:i:s");
 	$event_id = $event['Event']['id'];
 	echo $this->Form->create('Comment');
-	echo $this->Form->input('comment',array('type' => 'detail','placeholder' => 'Please comment'));
-	echo $this->Form->input('event_id',array('type' => 'hidden','value' => $event_id));
-	echo $this->Form->input('created', array('type' => 'hidden','value' => $nowtime));
-	echo $this->Form->input('user_id', array('type' => 'hidden','value' => '1'));  //最終的にはhiddenにして、値を$userにする(Authの機能)
+	echo $this->Form->input('comment', array('type' => 'detail', 'placeholder' => 'Please comment'));
+	echo $this->Form->input('event_id', array('type' => 'hidden', 'value' => $event_id));
+	echo $this->Form->input('created', array('type' => 'hidden', 'value' => $nowtime));
+	echo $this->Form->input('user_id', array('type' => 'hidden', 'value' => '1'));  //最終的にはhiddenにして、値を$userにする(Authの機能)
 	echo $this->Form->end('Add');
 ?>
 
-<HR></br>
-<p><?php echo $this->Html->link('Edit this event',array('action' => 'edit', $event['Event']['id'])); ?></p>
-<p><?php echo $this->Form->postLink('Delete this event',array('action' => 'delete', $event['Event']['id']),array('confirm' => 'Are you sure?')); ?></p>
-
-
-<!--          CSSで体裁を整える        -->
-<head>
-<meta http-equiv="Content-Style-Type" content="text/css">
-</head>
-
-<style>
-dt{
-  font-size : 20px;
-  font-weight : bold;
-
-  margin-bottom : 0px;
-
-  border-left-width : 7px;
-  border-left-style : solid;
-  border-left-color : #666666;
-
-  padding-top : 2px;
-  padding-left : 8px;
-  padding-bottom : 2px;
-}
-
-dd{  
-  font-size : 100%;
-  line-height : 1.8;    
-  margin-bottom : 45px;    
-  
-  /*padding-left : 30px;*/
-  /*padding-right : 15px;*/
-}
-</style>
+<hr><br />
+<p><?php echo $this->Html->link('Edit this event', array('action' => 'edit', $event['Event']['id'])); ?></p>
+<p><?php echo $this->Form->postLink('Delete this event', array('action' => 'delete', $event['Event']['id']), array('confirm' => 'Are you sure?')); ?></p>
