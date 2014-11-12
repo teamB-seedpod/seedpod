@@ -14,17 +14,43 @@ class UsersController extends AppController {
  *
  * @var array
  */
+    //public $uses = array('user');
 	public $components = array('Paginator', 'Session');
-    public $helpers = array('UploadPack.Upload');
+    public $helpers = array('UploadPack.Upload','Paginator');
+    public $paginate = array (
+        //'userList' => array (
+            'limit' => 6,
+            'order' => array (
+                'created' => 'desc'
+            )
+        //)
+    );
 
 /**
  * index method
  *
  * @return void
  */
-	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate());
+    public function index() { 
+        $this->Paginator->settings = $this->paginate;
+        $this->User->recursive = 0; 
+        $this->set('total', $this->User->find('count'));
+        
+        if ($this->request->is('post')) {
+            $sort = $this->request->data['Sort']['group_id'];
+            //$this->set('sort', $sort);
+            if ($sort == '0') {
+                $this->set('users', $this->Paginator->paginate());
+                //$this->redirect(array('action' => 'index'));
+            } else {
+                $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort)));
+                //$this->redirect(array('action' => 'index'));
+            }
+        } else {
+            //$this->set('users', $this->Paginator->paginate());
+            //$users = $this->Paginator->paginate();
+            $this->set('users', $this->Paginator->paginate());
+        }
 	}
 
 /**
@@ -125,4 +151,5 @@ class UsersController extends AppController {
             //not allow
         }
     }
+
 }

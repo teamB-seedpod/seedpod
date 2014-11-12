@@ -14,6 +14,9 @@ class User extends AppModel {
         'name' => array(
             'rule' => 'notEmpty'
         ),
+        'nickname' => array(
+            'rule' => 'notEmpty'
+        ),
         'group_id' => array(
             'rule' => 'notEmpty'
         ),
@@ -32,7 +35,8 @@ class User extends AppModel {
                 'quality' => 95,
                 'styles' => array(
                     'thumb' => '85x85'
-                )
+                ),
+                'default_url' => '/img/noimage.gif'
             )
         )
     );
