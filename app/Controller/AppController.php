@@ -42,7 +42,7 @@ class AppController extends Controller {
             ),
             'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            'authorize' => array('Controller') 
+            'authorize' => array('Controller')
         )
     );
 
@@ -51,6 +51,9 @@ class AppController extends Controller {
 
     public function beforeFilter(){
         $this->Auth->allow();
-        $this->set('user', $this->Auth->user());
+        if ($this->Auth->user()) {
+            $loginUser = $this->Auth->user();
+            $this->set('loginUser', $loginUser);
+        }
     }
 }

@@ -38,15 +38,15 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
     <div style="background-color:#fff; color:#333;">
    <?php
-     if(isset($user)):
+     if(isset($loginUser)):
          echo 'Welcome ';
-         echo h($user['name']);
+         echo h($loginUser['name']);
          echo '! ';
          echo $this->Html->link('LOGOUT', '/users/logout');
      else:
          echo $this->Html->link('LOGIN', '/users/login');
          echo ' ';
-         echo $this->Html->link('SIGN UP', '/users/register');
+         echo $this->Html->link('SIGN UP', '/users/add');
      endif;
     ?>
     </div>
