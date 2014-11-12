@@ -1,26 +1,21 @@
 <div class="users view">
-<h2><?php echo __('User'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Role'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['role']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Email'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['email']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Password'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
-			&nbsp;
-		</dd>
+<h2><?php echo h($user['User']['nickname']); ?></h2>
+
+<p>
+<?php
+    if(isset($loginUser)) {
+        if($user['User']['id'] == $loginUser['id']) {        
+            echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id']));
+        }
+    }
+?>
+</p>
+
+
+<p class="pic" style="float:left;width:30%;"><?php echo $this->Upload->uploadImage($user, 'User.img'); ?></p>
+
+
+	<dl style="float:right;width:70%;">
 		<dt><?php echo __('Name'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['name']); ?>
@@ -28,22 +23,29 @@
 		</dd>
 		<dt><?php echo __('Group Id'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['group_id']); ?>
+        <?php
+            if ($user['User']['group_id'] == '1') { 
+                echo '<font color="blue">STUDENT</font>';
+            } else if ($user['User']['group_id'] == '2'){
+                echo '<font color="red">TEACHER</font>';
+            } else if ($user['User']['group_id'] == '3'){
+                echo '<font color="green">STAFF</font>';
+        }?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Birthday'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['birthday']); ?>
+			<?php echo date('M.d', strtotime($user['User']['birthday'])) ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Coming Date'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['coming_date']); ?>
+			<?php echo date('M.d.Y', strtotime($user['User']['coming_date'])) ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Graduating Date'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['graduating_date']); ?>
+			<?php echo date('M.d.Y', strtotime($user['User']['graduating_date'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Hobby'); ?></dt>
@@ -51,34 +53,9 @@
 			<?php echo h($user['User']['hobby']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Introduce'); ?></dt>
-		<dd>
+		<dt style=""><?php echo __('Introduce'); ?></dt>
+		<dd style="">
 			<?php echo h($user['User']['introduce']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Block Flg'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['block_flg']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Del Flg'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['del_flg']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Byebye Flag'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['byebye_flag']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Modified'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['modified']); ?>
 			&nbsp;
 		</dd>
 	</dl>

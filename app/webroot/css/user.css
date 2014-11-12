@@ -14,15 +14,15 @@
     margin-bottom: 7px;
 }
 
-.pic {
+.index .pic {
     text-align: center;
 }
 
-.birthday .graduating_date {
+.index .birthday .graduating_date {
     font-size: 10px;
 }
 
-.nickname {
+.index .nickname {
     font-size: 20px; 
 }
 
