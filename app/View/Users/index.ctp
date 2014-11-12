@@ -25,10 +25,7 @@
 	<tbody>
 	<?php foreach ($users as $user): ?>
 	<tr>
-		<td><?php echo h($user['User']['id']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['role']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['password']); ?>&nbsp;</td>
+        <td><?php echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb')) ?></td>
 		<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['group_id']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['birthday']); ?>&nbsp;</td>
@@ -36,11 +33,6 @@
 		<td><?php echo h($user['User']['graduating_date']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['hobby']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['introduce']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['block_flg']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['del_flg']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['byebye_flag']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $user['User']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $user['User']['id'])); ?>
