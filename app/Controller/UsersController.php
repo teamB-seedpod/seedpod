@@ -112,16 +112,19 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'view'));
-			} else {
+            } else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
 		} else {
-			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+            $options = array('conditions' => array('User.'.$this->User->primaryKey => $id));
+            debug($this->User->primaryKey);
+            debug($id);
             $this->request->data = $this->User->find('first', $options);
-            //$this->set('user', $this->request->data);
+            //$this->set('user', $this->request->data); //for showing profile picture
 		}
 	}
 
