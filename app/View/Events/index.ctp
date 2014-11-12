@@ -62,9 +62,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<th>Participants</th>
 	</tr>
 
-<?php $number=0; //Pastイベントカウント用の変数。Nコだけ表示するようにする ?>
-
-	<?php foreach($events as $event): ?>
+	<?php foreach($past_events as $event): ?>
 	<tr>
 		<?php if($event['Event']['open_datetime'] < $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
@@ -89,19 +87,25 @@ $nowtime = date("Y-m-d H:i:s");
 					}
 				}
 			echo "   (".$count.")";
-			$number++;
 			?>
 		</td>
-			<?php
-				// カウントがNコ以上になったら、showmoreとして示す
-					if($number == 3){
-						echo '</tr></table>';
-						echo $this->Html->link('▶︎Look at all events', array('controller' => 'events', 'action' => 'lists'));
-						break;
-					}
-			?>
 		<?php endif; ?>
 	</tr>
 	<?php endforeach; ?>
 	<?php unset($event); ?>
 </table>
+
+<!-- 　　　　　ページネーション　　　　　　-->
+<?php
+    echo $this->Paginator->counter(array(
+    'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+    ));
+?>
+
+<div class="paging">
+<?php
+    echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+    echo $this->Paginator->numbers(array('separator' => ''));
+    echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+?>
+</div>
