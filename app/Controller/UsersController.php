@@ -14,16 +14,13 @@ class UsersController extends AppController {
  *
  * @var array
  */
-    //public $uses = array('user');
 	public $components = array('Paginator', 'Session');
     public $helpers = array('UploadPack.Upload','Paginator');
     public $paginate = array (
-        //'userList' => array (
-            'limit' => 6,
-            'order' => array (
-                'created' => 'desc'
-            )
-        //)
+        'limit' => 6,
+        'order' => array (
+            'created' => 'desc'
+        )
     );
 
 /**
@@ -38,17 +35,12 @@ class UsersController extends AppController {
         
         if ($this->request->is('post')) {
             $sort = $this->request->data['Sort']['group_id'];
-            //$this->set('sort', $sort);
             if ($sort == '0') {
                 $this->set('users', $this->Paginator->paginate());
-                //$this->redirect(array('action' => 'index'));
             } else {
                 $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort)));
-                //$this->redirect(array('action' => 'index'));
             }
         } else {
-            //$this->set('users', $this->Paginator->paginate());
-            //$users = $this->Paginator->paginate();
             $this->set('users', $this->Paginator->paginate());
         }
 	}
