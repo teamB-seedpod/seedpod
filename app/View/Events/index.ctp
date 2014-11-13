@@ -96,7 +96,7 @@ $nowtime = date("Y-m-d H:i:s");
 				// カウントがNコ以上になったら、showmoreとして示す
 					if($number == 3){
 						echo '</tr></table>';
-						echo $this->Html->link('▶︎Look at all events', array('controller' => 'events', 'action' => 'event_list'));
+						echo $this->Html->link('▶︎Look at all events', array('controller' => 'events', 'action' => 'lists'));
 						break;
 					}
 			?>

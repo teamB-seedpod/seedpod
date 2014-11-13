@@ -227,7 +227,7 @@ class EventsController extends AppController{
         )
     );
 
-    public function event_list(){
+	public function lists(){
     	$events = $this->paginate('Event');
 	    $this->set('events', $events);
 
