@@ -12,5 +12,12 @@ class User extends AppModel {
         return true;
     }
 
+    public $hasMany = array(
+		'Participant' => array(
+			'className'  => 'Participant',
+			'foreignKey' => 'user_id',
+		)
+	);
+
 }
 
