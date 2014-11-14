@@ -104,7 +104,7 @@ class UsersController extends AppController {
 	}
 
     public function login() {
-        if ($this->request->is('post')) { 
+        if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 $this->redirect($this->Auth->redirect());
             } else {
@@ -118,9 +118,9 @@ class UsersController extends AppController {
         $this->redirect($this->Auth->redirect());
     }
 
-    public function approval() { 
+    public function approval() {
         if ($this->Auth->user()) {
-           
+
         } else {
             //not allow
         }

@@ -15,7 +15,7 @@
                     '1' => 'STUDENT',
                     '2' => 'TEACHER',
                     '3' => 'STAFF'
-                ), 
+                ),
             )
         );
 
@@ -40,7 +40,7 @@
             array(
                 'minYear' => date('Y') - 20,
                 'maxYear' => date('Y') + 20
-            )               
+            )
         );
 		echo $this->Form->input(
             'graduating_date',

@@ -21,7 +21,7 @@ class User extends AppModel {
             'rule' => 'date',
             'allowEmpty' => true
         )
-    ); 
+    );
 
 /**
  * 画像アップロード機能の設定
@@ -50,4 +50,3 @@ class User extends AppModel {
     }
 
 }
-
