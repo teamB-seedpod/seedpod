@@ -1,7 +1,22 @@
+<?php
+  /**
+   * If Push filter after paging, go to Page:1
+   * This function does not working now
+   */
+  if(isset($this->passedArgs['page']) && $this->request->is('post')) {
+        $this->Paginator->options(array(
+            'url' => array('page' => '1'))
+        );
+  } else {
+  }
+?>
 <div class="users index">
     <h2><?php echo 'Nexseed Members!! Now total '.$total.' people!!' ?></h2>
-    
+
     <?php
+    /**
+     * Filter Function
+     */
         echo $this->Form->create('Sort');
         echo $this->Form->input(
             'group_id',

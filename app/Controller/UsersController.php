@@ -17,7 +17,7 @@ class UsersController extends AppController {
 	public $components = array('Paginator', 'Session');
     public $helpers = array('UploadPack.Upload', 'Paginator');
     public $paginate = array (
-        'limit' => 6,
+        'limit' => 3,
         'order' => array (
             'created' => 'desc'
         )
@@ -35,13 +35,26 @@ class UsersController extends AppController {
         
         if ($this->request->is('post')) {
             $sort = $this->request->data['Sort']['group_id'];
+            // パラメータをセッション変数に保存
+            $this->Session->write('sort', $sort);
+            $this->set('sort', $sort);
+
             if ($sort == '0') {
                 $this->set('users', $this->Paginator->paginate());
             } else {
                 $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort)));
             }
         } else {
-            $this->set('users', $this->Paginator->paginate());
+            if($this->Session->check('sort')) {
+                $sort = $this->Session->read('sort');
+                if ($sort == '0') {
+                    $this->set('users', $this->Paginator->paginate());
+                } else { 
+                    $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort)));
+                }
+            } else {
+                $this->set('users', $this->Paginator->paginate());
+            }
         }
 	}
 
