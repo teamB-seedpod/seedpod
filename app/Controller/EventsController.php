@@ -235,4 +235,20 @@ class EventsController extends AppController{
     	    $events = $this->paginate('Event');
 	    $this->set('events', $events);
 	}
+
+    public function invite(){
+		$users = $this->User->find('all', array('order' => array('name' => 'ASC')));
+		$this->set('users', $users);
+
+		//招待した情報をParticipantテーブルに反映させる
+		// if($this->request->is('post')){
+		// 	$this->Participant->create();
+		// 	if($this->Participant->save($this->request->data)){
+		// 		$this->Session->setFlash(__('Your comment has been saved.'));
+		// 		return $this->redirect($this->referer());
+		// 	}
+		// 	$this->Session->setFlash(__('Unable to comment.'));
+		// }
+	}
+
 }
