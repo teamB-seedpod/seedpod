@@ -3,10 +3,13 @@
    * If Push filter after paging, go to Page:1
    * This function does not working now
    */
+debug($this->Paginator->options);
   if(isset($this->passedArgs['page']) && $this->request->is('post')) {
         $this->Paginator->options(array(
-            'url' => array('page' => '1'))
-        );
+             'url' => array('page' => '1'))
+     );
+
+debug($this->Paginator->options);
   } else {
   }
 ?>

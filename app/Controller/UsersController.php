@@ -28,7 +28,9 @@ class UsersController extends AppController {
  *
  * @return void
  */
-    public function index() { 
+    public function index() {
+
+        debug($this->referer);
         $this->Paginator->settings = $this->paginate;
         $this->User->recursive = 0; 
         $this->set('total', $this->User->find('count'));
@@ -38,7 +40,8 @@ class UsersController extends AppController {
             // パラメータをセッション変数に保存
             $this->Session->write('sort', $sort);
             $this->set('sort', $sort);
-
+            $this->request->params['named']['page'] = 1;
+            
             if ($sort == '0') {
                 $this->set('users', $this->Paginator->paginate());
             } else {
