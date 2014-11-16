@@ -14,6 +14,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
+    public $uses = array('User', 'Event', 'Participant');
 	public $components = array('Paginator', 'Session');
     public $helpers = array('UploadPack.Upload', 'Paginator');
     public $paginate = array (
@@ -81,8 +82,19 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-		$this->set('user', $this->User->find('first', $options));
-	}
+        $this->set('user', $this->User->find('first', $options));
+
+        //GET OWNER EVENT
+		$options = array('conditions' => array('user_id' => $id));
+        $this->set('myOwnerEvents', $this->Event->find('all', $options));
+
+        //GET PARTICIPANT EVENT
+		$options = array('conditions' => array('Participant.user_id' => $id));
+        $participantEvent = $this->Participant->find('all', $options);
+        $this->set('myParticipantEvents', $this->Participant->find('all', $options));
+    }
+
+
 
 /**
  * add method

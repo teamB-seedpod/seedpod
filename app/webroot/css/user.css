@@ -30,3 +30,7 @@
     clear: both;
     padding-top: 30px;
 }
+
+.view .pic img {
+    max-width: 95%;
+}

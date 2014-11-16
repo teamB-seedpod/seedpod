@@ -7,9 +7,12 @@ class Participant extends AppModel{
     	'User' => array(	//このUserは配列の引数になる
     		'className'  => 'User',
     		'foreignKey' => 'user_id',
-    	)
+        ),
+        'Event' => array(
+            'className' => 'Event',
+            'foreignKey' => 'event_id'
+        )
     );
-
 
 	//evet_idとuser_idの2つをAND条件にしてParticipantsテーブル内のデータを検索するためのメソッド
 	public function getParticipantInfo($event_id){
@@ -27,7 +30,7 @@ class Participant extends AppModel{
 	 public function getJoin($event_id){
 	 		$conditions = array(
 	 			'event_id' => $event_id,
-	 			'status' => 2
+	 			'Participant.status' => 2
 	 		);
 
 	        $join_info = $this->find('all', array('conditions' => $conditions));
@@ -38,7 +41,7 @@ class Participant extends AppModel{
 	 public function getMaybe($event_id){
 	 		$conditions = array(
 	 			'event_id' => $event_id,
-	 			'status' => 3
+	 			'Participant.status' => 3
 	 		);
 
 	        $maybe_info = $this->find('all', array('conditions' => $conditions));
@@ -49,10 +52,11 @@ class Participant extends AppModel{
 	 public function getInvited($event_id){
 	 		$conditions = array(
 	 			'event_id' => $event_id,
-	 			'status' => 1
+	 			'Participant.status' => 1
 	 		);
 
 	        $invited_info = $this->find('all', array('conditions' => $conditions));
 	        return $invited_info;
-	 }
+     }
+
 }
