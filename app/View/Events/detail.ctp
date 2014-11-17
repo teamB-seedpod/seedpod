@@ -73,7 +73,8 @@
 			}
 		?>
 	</dd>
-<hr>
+<?php echo $this->Html->link('Send invitation!', array('action' => 'invite', $event['Event']['id'])); ?>
+<br /><br /><hr>
 
 <!-- コメント機能の実装 -->
 <br /><dt>Comments：</dt><br />

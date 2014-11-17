@@ -93,7 +93,7 @@ class EventsController extends AppController{
 			$this->Event->id = $id;
 			if($this->Event->save($this->request->data)){
 				$this->Session->setFlash(__('Your event has been updated.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'detail', $id));
 			}
 			$this->Session->setFlash(__('Unable to update your post.'));
 		}
@@ -231,24 +231,35 @@ class EventsController extends AppController{
         )
     );
 
-	public function lists(){
-    	    $events = $this->paginate('Event');
-	    $this->set('events', $events);
-	}
+    public function invite($id){  //このidはEventのid
+    	if(!$id){
+			throw new NotFoundException(__('Invalid post'));
+		}
 
-    public function invite(){
+		$event = $this->Event->findById($id);
+		$this->set('event', $event);
+
 		$users = $this->User->find('all', array('order' => array('name' => 'ASC')));
 		$this->set('users', $users);
 
-		//招待した情報をParticipantテーブルに反映させる
-		// if($this->request->is('post')){
-		// 	$this->Participant->create();
-		// 	if($this->Participant->save($this->request->data)){
-		// 		$this->Session->setFlash(__('Your comment has been saved.'));
-		// 		return $this->redirect($this->referer());
-		// 	}
-		// 	$this->Session->setFlash(__('Unable to comment.'));
-		// }
+		//viewからpost送信された場合にParticipantDBに保存する
+		if($this->request->is('post')){
+			$invite_list = $this->request->data;
+
+			if(isset($invite_list)){
+				foreach($invite_list as $invite){
+					echo $invite;
+					echo '<br/>';
+
+					// 登録する内容を設定
+					$data = array('Participant' => array('event_id' => $id, 'user_id' => $invite , 'status' => 1));
+					// 保存
+					$this->Participant->saveAll($data);
+				}
+			$this->Session->setFlash(__('Your invitation has been sent.'));
+			return $this->redirect(array('action' => 'detail', $id));
+			}
+		}
 	}
 
 }
