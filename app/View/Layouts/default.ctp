@@ -26,8 +26,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
+        echo $this->Html->css('cake.generic');
 
-		echo $this->Html->css('cake.generic');
+        if($this->name == 'Users') {
+            echo $this->Html->css('user.css');
+        }
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
