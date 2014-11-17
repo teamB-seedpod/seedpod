@@ -15,7 +15,7 @@ class UsersController extends AppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
-    public $helpers = array('UploadPack.Upload','Paginator');
+    public $helpers = array('UploadPack.Upload', 'Paginator');
     public $paginate = array (
         'limit' => 6,
         'order' => array (

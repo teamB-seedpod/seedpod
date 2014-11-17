@@ -18,7 +18,6 @@
     ?>
 
 	<?php foreach ($users as $user): ?>
-<?php $user['User']['id'] ?>
     <a href="/seedpod/users/view/<?php echo $user['User']['id'] ?>">
     <div class="col3">
         <p class="pic"><?php echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb')) ?></p>
@@ -47,7 +46,7 @@
 
     <?php endforeach; ?>
 
-    <div style="clear:both; padding-top:30px;"></div>
+    <div class="clear"></div>
 
     <?php
         echo $this->Paginator->counter(array('format' => 'TOTAL:{:count} | SHOWING:{:current} | ' ));
