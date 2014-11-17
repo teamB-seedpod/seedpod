@@ -37,5 +37,5 @@ class Event extends AppModel{
             )
         ),
     );
-
+    
 }

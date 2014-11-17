@@ -1,0 +1,121 @@
+commit ab0a8c342f850db3695666df444e1fc081e5afbd
+Author: vagrant <vagrant@localhost.localdomain>
+Date:   Fri Nov 14 01:56:15 2014 +0000
+
+    招待機能を追加する準備完了
+
+commit c3e5269c646a8092a088f8f75cf6e941fc6253dd
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Wed Nov 12 17:13:03 2014 +0800
+
+    ページネーションをindexに追加して、イベントリストページを削除
+
+commit 83ae006d2bd91e1322a464ba0da480577f7eca4f
+Merge: ecb64f9 80c9a1c
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Wed Nov 12 16:02:54 2014 +0800
+
+    Merge branch 'feature/signin-toppage' of https://github.com/teamB-seedpod/seedpod into feature/event-invite
+
+commit ecb64f9b25a81538840cebb0f8372a7172c7ece7
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Wed Nov 12 11:01:07 2014 +0800
+
+    Event機能全体の改修
+
+commit 4394c090bd49d7bfc7304803b6196c23cdcc9a04
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Mon Nov 10 08:34:38 2014 +0800
+
+    Event関連の基本的な機能を実装(たたき)
+
+commit 4692a49abf6ea6ca0a155dbd18bcc5d044a3203a
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Sun Nov 9 17:45:51 2014 +0800
+
+    Event detailの大枠終了
+
+commit 80c9a1c70b29cda963e088e936282ebdf2baa7a4
+Author: Tamiiy <rashifamido@gmail.com>
+Date:   Sun Nov 9 16:29:38 2014 +0800
+
+    レビュー後の修正(文字化けしたコメントを削除)
+
+commit f024cb2bb3bf320fb679c3d9dcc9f249e1e9012b
+Author: Tamiiy <vagrant@localhost.localdomain>
+Date:   Thu Nov 6 23:54:46 2014 +0000
+
+    ログイン機能完了
+
+commit 1fe7ab643d991b51a76f066248ba4b8c3a4c339f
+Author: Tamiiy <vagrant@localhost.localdomain>
+Date:   Thu Nov 6 22:48:39 2014 +0000
+
+    パスワードハッシュ追加(コンフリクトをマージ)
+
+commit 8b7074f8b8d255e9bae1dd6f2804cbfedc3750a1
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Thu Nov 6 20:04:23 2014 +0800
+
+    Event detailをいじる前
+
+commit 69dd8b2d3cd931dc943707bdccb9e5511d0e0b6c
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Thu Nov 6 11:14:03 2014 +0800
+
+    DBをアソシエーションする前の状態
+
+commit 323af6d92f6bafb631ce05f4b0b90446dee64da5
+Author: Tamiiy <vagrant@localhost.localdomain>
+Date:   Thu Nov 6 02:53:21 2014 +0000
+
+    ログイン周りの設定(未完成):authCompornentのパスワード設定を変更
+
+commit 6db9391553cb86f49313ac2598c986159b0c7cdf
+Merge: e94927f e9d9fd8
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Thu Nov 6 10:09:58 2014 +0800
+
+    Merge branch 'feature/signin-toppage' of https://github.com/teamB-seedpod/seedpod into feature/eventlist-home
+
+commit e9d9fd8fc47767c8250623727e527e1c40a59fd4
+Author: Tamiiy <vagrant@localhost.localdomain>
+Date:   Wed Nov 5 02:57:19 2014 +0000
+
+    bakeでユーザ関連一式作成
+
+commit e94927f93a09e72c3dff2c5d089fe78081778abe
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Tue Nov 4 09:41:56 2014 +0800
+
+    jsonファイルをignoreしました
+
+commit ed97ca57b85aadbdf6ba082607e7a5aab179521b
+Author: Tamiiy <rashifamido@gmail.com>
+Date:   Mon Nov 3 22:30:35 2014 +0800
+
+    tmp空フォルダが入るように追加
+
+commit 99169cf4ccd04b21442b3fcaad84eeb1a5f3195a
+Author: Tamiiy <vagrant@localhost.localdomain>
+Date:   Mon Nov 3 09:23:08 2014 +0000
+
+    .gitignoreを追加(app/tmpを無視),.htaccessを追加
+
+commit 86082d69a481dc42063c5aefa34a7b174aa5da82
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Mon Nov 3 11:09:49 2014 +0800
+
+    CAKE PHPの初期設定
+
+commit 56e5ad99cce953f27fbbdebdddc72bc0fc6c2774
+Author: nakashi100 <tomohide.nakashima@gmail.com>
+Date:   Mon Nov 3 10:12:25 2014 +0800
+
+    CAKE PHPの初期設定
+
+commit 429050c502c8e8904dec662d6b54046c5cef04a5
+Author: Tamiiy <rashifamido@gmail.com>
+Date:   Sun Nov 2 15:19:57 2014 +0800
+
+    initial commit (cakephp add)
