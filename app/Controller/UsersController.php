@@ -123,20 +123,19 @@ class UsersController extends AppController {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		if ($this->request->is(array('post', 'put'))) {
-
+        if ($this->request->is(array('post', 'put'))) {
+            $this->User->id = $id;
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'view'));
+				return $this->redirect('/users/view/'.$id);
             } else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
-		} else {
+        } else {
             $options = array('conditions' => array('User.'.$this->User->primaryKey => $id));
-            debug($this->User->primaryKey);
-            debug($id);
             $this->request->data = $this->User->find('first', $options);
-            //$this->set('user', $this->request->data); //for showing profile picture
+            $this->request->data['User']['password'] = null;
+            $this->set('user', $this->request->data); //for showing profile picture
 		}
 	}
 

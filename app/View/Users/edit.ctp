@@ -1,5 +1,5 @@
 <div class="users form">
-<?php echo $this->Form->create('User'); ?>
+<?php echo $this->Form->create('User', array('type' => 'file')); ?>
 	<fieldset>
         <legend><?php echo __('Edit User'); ?></legend>
 
@@ -21,14 +21,14 @@
             )
         );
 
-        //echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb'));
-        //echo $this->Form->input(
-        //    'img',
-        //    array(
-        //        'type' => 'file',
-        //        'label' => 'Picture'
-        //    )
-        //);
+        echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb'));
+        echo $this->Form->input(
+            'img',
+            array(
+                'type' => 'file',
+                'label' => 'Picture'
+            )
+        );
 
         echo $this->Form->input(
             'birthday',
