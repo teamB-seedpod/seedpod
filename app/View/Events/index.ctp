@@ -1,7 +1,7 @@
 <h2>Event list</h2>
 
-<!--  Create Eventに飛ばすためのリンク -->
 <?php
+	//Create Eventに飛ばすためのリンク 
 	echo $this->Html->link('Create Event', array('controller' => 'events', 'action' => 'create'));
 ?>
 <br /><br />
@@ -95,8 +95,8 @@ $nowtime = date("Y-m-d H:i:s");
 	<?php unset($event); ?>
 </table>
 
-<!-- 　　　　　ページネーション　　　　　　-->
 <?php
+	//ページネーション
     echo $this->Paginator->counter(array(
     'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
     ));

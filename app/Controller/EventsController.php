@@ -12,7 +12,7 @@ class EventsController extends AppController{
 		$this->set('users', $this->User->find('all'));
 
 		//過去のイベントをページネーションしたものをindex.ctpに渡す！
-    	$past_events = $this->paginate('Event',array('open_datetime < now()'));
+    	$past_events = $this->paginate('Event', array('open_datetime < now()'));
 	    $this->set('past_events', $past_events);
 	}
 
@@ -137,8 +137,9 @@ class EventsController extends AppController{
 		$participant_id = $participants[0]['Participant']['id'];
 
 		if($participant_id == null){
+			$loginUser = $this->Auth->user();
 			// 登録する内容を設定
-			$data = array('Participant' => array('event_id' => $id, 'user_id' => 1 , 'status' => 2));  //最終的にはAuthを利用する。2は参加。
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 2));  //最終的にはAuthを利用する。2は参加。
 			// 登録する項目（フィールド指定）
 			$fields = array('event_id', 'user_id', 'status');
 			// 登録
@@ -169,8 +170,9 @@ class EventsController extends AppController{
 		$participant_id = $participants[0]['Participant']['id'];
 
 		if($participant_id == null){
+			$loginUser = $this->Auth->user();
 			// 登録する内容を設定
-			$data = array('Participant' => array('event_id' => $id, 'user_id' => 1 ,'status' => 3));  //最終的にはAuthを利用する。3は保留。
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 3));  //最終的にはAuthを利用する。3は保留。
 			// 登録する項目（フィールド指定）
 			$fields = array('event_id','user_id','status');
 			// 登録
@@ -201,8 +203,9 @@ class EventsController extends AppController{
 		$participant_id = $participants[0]['Participant']['id'];
 
 		if($participant_id == null){
+			$loginUser = $this->Auth->user();
 			// 登録する内容を設定
-			$data = array('Participant' => array('event_id' => $id, 'user_id' => 1 , 'status' => 4));  //最終的にはAuthを利用する。4は欠席。
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 4));  //最終的にはAuthを利用する。4は欠席。
 			// 登録する項目（フィールド指定）
 			$fields = array('event_id', 'user_id', 'status');
 			// 登録
@@ -248,18 +251,17 @@ class EventsController extends AppController{
 
 			if(isset($invite_list)){
 				foreach($invite_list as $invite){
-					echo $invite;
-					echo '<br/>';
-
-					// 登録する内容を設定
-					$data = array('Participant' => array('event_id' => $id, 'user_id' => $invite , 'status' => 1));
-					// 保存
-					$this->Participant->saveAll($data);
+					if(!is_array($invite)){
+						// 登録する内容を設定
+						$data = array('Participant' => array('event_id' => $id, 'user_id' => $invite , 'status' => 1));
+						// 保存
+						$this->Participant->saveAll($data);
+					}
 				}
 			$this->Session->setFlash(__('Your invitation has been sent.'));
 			return $this->redirect(array('action' => 'detail', $id));
 			}
 		}
 	}
-
+	
 }
