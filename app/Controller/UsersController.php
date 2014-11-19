@@ -24,6 +24,30 @@ class UsersController extends AppController {
     );
 
 /**
+ * beforeFilter
+ */
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add', 'login', 'logout', 'approval');
+    }
+
+/**
+ * isAuthorized: After Login Setting
+ */
+    public function isAuthorized($user) {
+        if (in_array($this->action, array('edit', 'delete'))) {
+            $userId = (int) $this->request->params['pass'][0];
+            if ($userId ==  $user['id']) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
+
+
+/**
  * index method
  *
  * @return void
@@ -124,7 +148,7 @@ class UsersController extends AppController {
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $this->redirect($this->Auth->redirect());
+                return $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('Invalid email or password, try again'));
             }
@@ -133,7 +157,8 @@ class UsersController extends AppController {
 
     public function logout(){
         $this->Auth->logout();
-        $this->redirect($this->Auth->redirect());
+        $this->Session->destroy();
+        return $this->redirect(array('action' => 'login'));
     }
 
     public function approval() {
