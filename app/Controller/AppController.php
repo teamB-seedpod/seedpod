@@ -36,21 +36,23 @@ class AppController extends Controller {
         'Auth' => array(
             'authenticate' => array(
                 'Form' => array(
-                        'userModel' => 'User',
-                        'fields' => array('username' => 'email', 'password' => 'password')
+                    'userModel' => 'User',
+                    'fields' => array('username' => 'email', 'password' => 'password')
                 )
             ),
-            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authorize' => array('Controller')
         )
     );
 
     public function isAuthorized($user) {
+        if ($user['del_flg'] == '0' && $user['role'] !== '0') {
+            return true;
+        } else {     
+            return false;
+        }
     }
 
-    public function beforeFilter(){
-        $this->Auth->allow();
+    public function beforeFilter() {
         if ($this->Auth->user()) {
             $loginUser = $this->Auth->user();
             $this->set('loginUser', $loginUser);
