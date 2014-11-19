@@ -77,7 +77,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 	</div>
 
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> e372864a00ac792ad0fb97c362797855948bfa60
 <script>
 $(function(){
 	setTimeout(function(){

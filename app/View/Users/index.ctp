@@ -2,6 +2,9 @@
     <h2><?php echo 'Nexseed Members!! Now total '.$total.' people!!' ?></h2>
 
     <?php
+    /**
+     * Filter Function
+     */
         echo $this->Form->create('Sort');
         echo $this->Form->input(
             'group_id',

@@ -49,8 +49,14 @@ class AppController extends Controller {
     public function isAuthorized($user) {
     }
 
+<<<<<<< HEAD
     public function beforeFilter(){
         $this->Auth->allow();
+=======
+    public function beforeFilter() {
+
+        $this->Auth->allow(); 
+>>>>>>> e372864a00ac792ad0fb97c362797855948bfa60
         if ($this->Auth->user()) {
             $loginUser = $this->Auth->user();
             $this->set('loginUser', $loginUser);
