@@ -28,11 +28,11 @@ class UsersController extends AppController {
  *
  * @return void
  */
-    public function index() { 
+    public function index() {
         $this->Paginator->settings = $this->paginate;
-        $this->User->recursive = 0; 
+        $this->User->recursive = 0;
         $this->set('total', $this->User->find('count'));
-        
+
         if ($this->request->is('post')) {
             $sort = $this->request->data['Sort']['group_id'];
             if ($sort == '0') {
@@ -143,5 +143,4 @@ class UsersController extends AppController {
             //not allow
         }
     }
-
 }

@@ -8,7 +8,7 @@ class Event extends AppModel{
 		'close_datetime' => array('rule' => 'notEmpty'),
 		'place' => array('rule' => 'notEmpty'),
 		'detail' => array('rule' => 'notEmpty'),
-		'user_id' => array('rule' => 'notEmpty')		
+		'user_id' => array('rule' => 'notEmpty')
 	);
 
 	//events(多数)にusers(1つ)をbelongstoでアソシエーションする
@@ -37,5 +37,4 @@ class Event extends AppModel{
             )
         ),
     );
-
 }

@@ -10,6 +10,10 @@ class EventsController extends AppController{
 
         //userテーブルをdetail.ctpに渡す
 		$this->set('users', $this->User->find('all'));
+
+		//過去のイベントをページネーションしたものをindex.ctpに渡す！
+    	$past_events = $this->paginate('Event',array('open_datetime < now()'));
+	    $this->set('past_events', $past_events);
 	}
 
 	public function detail($id = null){    //このidはeventsのid
@@ -17,7 +21,7 @@ class EventsController extends AppController{
 			throw new NotFoundException(__('Invalid post'));
 		}
 
-		$event = $this->Event->findById($id); 
+		$event = $this->Event->findById($id);
 		if(!$event){
 			throw new NotFoundException(__('Invalid post'));
 		}
@@ -89,7 +93,7 @@ class EventsController extends AppController{
 			$this->Event->id = $id;
 			if($this->Event->save($this->request->data)){
 				$this->Session->setFlash(__('Your event has been updated.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'detail', $id));
 			}
 			$this->Session->setFlash(__('Unable to update your post.'));
 		}
@@ -221,16 +225,40 @@ class EventsController extends AppController{
 
 	//ページネーションを利用してイベント一覧ページを作成する
 	public $paginate = array(
-        'limit' => 5,
+        'limit' => 3,
         'order' => array(
             'Event.open_datetime' => 'desc'
         )
     );
 
-	public function lists(){
-    	$events = $this->paginate('Event');
-	    $this->set('events', $events);
+    public function invite($id){  //このidはEventのid
+    	if(!$id){
+			throw new NotFoundException(__('Invalid post'));
+		}
 
-		$this->set('users',$this->User->find('all'));
-    }
+		$event = $this->Event->findById($id);
+		$this->set('event', $event);
+
+		$users = $this->User->find('all', array('order' => array('name' => 'ASC')));
+		$this->set('users', $users);
+
+		//viewからpost送信された場合にParticipantDBに保存する
+		if($this->request->is('post')){
+			$invite_list = $this->request->data;
+
+			if(isset($invite_list)){
+				foreach($invite_list as $invite){
+					echo $invite;
+					echo '<br/>';
+
+					// 登録する内容を設定
+					$data = array('Participant' => array('event_id' => $id, 'user_id' => $invite , 'status' => 1));
+					// 保存
+					$this->Participant->saveAll($data);
+				}
+			$this->Session->setFlash(__('Your invitation has been sent.'));
+			return $this->redirect(array('action' => 'detail', $id));
+			}
+		}
+	}
 }

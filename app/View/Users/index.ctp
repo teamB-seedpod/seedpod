@@ -1,6 +1,6 @@
 <div class="users index">
     <h2><?php echo 'Nexseed Members!! Now total '.$total.' people!!' ?></h2>
-    
+
     <?php
         echo $this->Form->create('Sort');
         echo $this->Form->input(
@@ -26,13 +26,13 @@
 
         <p class="group">
         <?php
-        if ($user['User']['group_id'] == '1') { 
+        if ($user['User']['group_id'] == '1') {
             echo '<font color="blue">STUDENT</font>';
         } else if ($user['User']['group_id'] == '2'){
             echo '<font color="red">TEACHER</font>';
         } else if ($user['User']['group_id'] == '3'){
             echo '<font color="green">STAFF</font>';
-        } 
+        }
         ?>
         </p>
 
@@ -59,6 +59,4 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-
 </div>
-

@@ -51,7 +51,7 @@
 <hr><br />
 <dt>Join(<?php echo count($join_info); ?>):</dt>
 	<dd>
-		<?php 
+		<?php
 			foreach($join_info as $join){
 				echo h($join['User']['name']).'　';
 			}
@@ -59,7 +59,7 @@
 	</dd>
 <dt>Maybe(<?php echo count($maybe_info); ?>):</dt>
 	<dd>
-		<?php 
+		<?php
 			foreach($maybe_info as $maybe){
 				echo h($maybe['User']['name']).'　';
 			}
@@ -67,13 +67,14 @@
 	</dd>
 <dt>Invited(<?php echo count($invited_info); ?>):</dt>
 	<dd>
-		<?php 
+		<?php
 			foreach($invited_info as $invited){
 				echo h($invited['User']['name']).'　';
 			}
 		?>
 	</dd>
-<hr>
+<?php echo $this->Html->link('Send invitation!', array('action' => 'invite', $event['Event']['id'])); ?>
+<br /><br /><hr>
 
 <!-- コメント機能の実装 -->
 <br /><dt>Comments：</dt><br />

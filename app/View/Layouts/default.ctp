@@ -77,7 +77,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 	</div>
 
-	
+
 <script>
 $(function(){
 	setTimeout(function(){
