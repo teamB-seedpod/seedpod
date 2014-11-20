@@ -26,7 +26,7 @@ echo '<form method="post" action="">';
 			$inviteOkId = $user['User']['id'];
 			$inviteOkName = $user['User']['name'];
 		}
-		if(isset($inviteOkId) && isset($inviteOkName)){
+		if(isset($inviteOkId) && isset($inviteOkName) && ($inviteOkId != $loginUser['id'])){
 			echo '<input type="checkbox" name="'.$inviteOkId.'" value='.$inviteOkId.'>'.$inviteOkName.'<br/>';
 		}
 		//招待リストをリセットする
