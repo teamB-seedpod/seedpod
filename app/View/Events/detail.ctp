@@ -24,18 +24,18 @@
 		$participant_status = $participants[0]['Participant']['status'];
 
 		if($participant_status == 1){
-			echo '<h3>'.'　　▶︎You\'re invited this event!'.'</h3>';
+			echo '<h3>'.'　　▶︎ You\'re invited this event!'.'</h3>';
 		}else if($participant_status == 2){
-			echo '<h3>'.'　　▶︎Your status is "Join"'.'</h3>';
+			echo '<h3>'.'　　▶︎ Your status is "Join"'.'</h3>';
 		}else if($participant_status == 3){
-			echo '<h3>'.'　　▶︎Your status is "Maybe"'.'</h3>';
+			echo '<h3>'.'　　▶ ︎Your status is "Maybe"'.'</h3>';
 		}else if($participant_status == 4){
-			echo '<h3>'.'　　▶︎Your status is "Decline"'.'</h3>';
+			echo '<h3>'.'　　▶︎ Your status is "Decline"'.'</h3>';
 		}else{
 			echo '<h3>'.'　　Something is wrong'.'</h3>';	//これはべつになくてもいいかも
 		}
 	}else{
-		echo '<h3>'.'　　★Please express your will★'.'</h3>';
+		echo '<h3>'.'　　▶︎ Please express your will'.'</h3>';
 	}
 ?>
 
@@ -73,24 +73,35 @@
 			}
 		?>
 	</dd>
-<?php echo $this->Html->link('Send invitation!', array('action' => 'invite', $event['Event']['id'])); ?>
-<br /><br /><hr>
+ <?php 
+	 if(isset($loginUser)){
+	 	if($event['Event']['user_id'] == $loginUser['id']){
+	 		echo $this->Html->link('Send invitation!', array('action' => 'invite', $event['Event']['id']));
+	 		echo '<br /><br />';
+	 	}
+	 }
+ ?>
+<hr>
 
 <!-- コメント機能の実装 -->
 <br /><dt>Comments：</dt><br />
 <?php
-sort($comments);
-foreach($comments as $comment){
-	echo "　　■".h($comment['Comment']['comment']).'---';
-	echo h($comment['Comment']['created']);
-	echo "(".h($comment['User']['name']).")　　";
-	echo $this->Form->postLink(
-	        'Delete',
-            array('action' => 'delete_comment', $comment['Comment']['id']),
-            array('confirm' => 'Are you sure?')
-            );
-	echo "<br />";
-}
+	sort($comments);
+	foreach($comments as $comment){
+		echo "　　■".h($comment['Comment']['comment']).'---';
+		echo h($comment['Comment']['created']);
+		echo "(".h($comment['User']['name']).")　　";
+		if(isset($loginUser)){
+			if($comment['Comment']['user_id'] == $loginUser['id']){
+				echo $this->Form->postLink(
+				        'Delete',
+			            array('action' => 'delete_comment', $comment['Comment']['id']),
+			            array('confirm' => 'Are you sure?')
+			            );
+			}
+		}
+		echo "<br />";
+	}
 ?>
 
 <?php
@@ -105,5 +116,12 @@ foreach($comments as $comment){
 ?>
 
 <hr><br />
-<p><?php echo $this->Html->link('Edit this event', array('action' => 'edit', $event['Event']['id'])); ?></p>
-<p><?php echo $this->Form->postLink('Delete this event', array('action' => 'delete', $event['Event']['id']), array('confirm' => 'Are you sure?')); ?></p>
+
+<?php
+	if(isset($loginUser)){
+		if($event['Event']['user_id'] == $loginUser['id']){
+			echo '<p>'.$this->Html->link('Edit this event', array('action' => 'edit', $event['Event']['id'])).'</p>';
+			echo '<p>'.$this->Form->postLink('Delete this event', array('action' => 'delete', $event['Event']['id']), array('confirm' => 'Are you sure?')).'</p>';
+		}
+	}
+?>

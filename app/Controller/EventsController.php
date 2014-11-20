@@ -1,10 +1,20 @@
 <?php
 class EventsController extends AppController{
-	public $uses = array('User', 'Event', 'Comment', 'Participant');
+	public $uses = array('User', 'Event', 'Comment', 'Participant', 'Information');
 	public $helpers = array('Html', 'Form', 'Session', 'UploadPack.Upload');
 	public $components = array('Session');
 
 	public function index(){
+		//Informationの情報をviewに渡す
+		$conditions = array(
+			'order' => 'created'
+		);
+
+		$this->set('Information', $this->Information->find('all', $conditions));
+		$this->set('title_for_layout', 'Nexseed');
+		$this->set('UsersInformation', $this->User->find('all'));
+
+		//Eventsの情報をviewに渡す
 		$events = $this->Event->find('all',array('order' => array('open_datetime' => 'DESC')));
         $this->set('events', $events);
 
@@ -262,5 +272,26 @@ class EventsController extends AppController{
 			return $this->redirect(array('action' => 'detail', $id));
 			}
 		}
+	}
+
+	//ページのアクセス権限処理(オーナー以外はアクセス不可)
+	public function isAuthorized($user){
+		if(in_array($this->action, array('edit', 'delete', 'invite'))){
+			$eventId = (int) $this->request->params['pass']['0'];
+			$eventInfo = $this->Event->findById($eventId);
+			$eventUserId = $eventInfo['Event']['user_id'];
+			if($eventUserId != $user['id']){
+				return false;
+			}
+		}
+		if(in_array($this->action, array('delete_comment'))){
+			$commentId = (int) $this->request->params['pass']['0'];
+			$comment = $this->Comment->findById($commentId);
+			$commentUserId = $comment['Comment']['user_id'];
+			if($commentUserId != $user['id']){
+				return false;
+			}
+		}
+		return parent::isAuthorized($user);
 	}
 }
