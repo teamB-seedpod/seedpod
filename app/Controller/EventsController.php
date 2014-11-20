@@ -139,7 +139,7 @@ class EventsController extends AppController{
 		if($participant_id == null){
 			$loginUser = $this->Auth->user();
 			// 登録する内容を設定
-			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 2));  //最終的にはAuthを利用する。2は参加。
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 2));
 			// 登録する項目（フィールド指定）
 			$fields = array('event_id', 'user_id', 'status');
 			// 登録
@@ -172,7 +172,7 @@ class EventsController extends AppController{
 		if($participant_id == null){
 			$loginUser = $this->Auth->user();
 			// 登録する内容を設定
-			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 3));  //最終的にはAuthを利用する。3は保留。
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 3));
 			// 登録する項目（フィールド指定）
 			$fields = array('event_id','user_id','status');
 			// 登録
@@ -205,7 +205,7 @@ class EventsController extends AppController{
 		if($participant_id == null){
 			$loginUser = $this->Auth->user();
 			// 登録する内容を設定
-			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 4));  //最終的にはAuthを利用する。4は欠席。
+			$data = array('Participant' => array('event_id' => $id, 'user_id' => $loginUser['id'] , 'status' => 4));
 			// 登録する項目（フィールド指定）
 			$fields = array('event_id', 'user_id', 'status');
 			// 登録
@@ -263,5 +263,4 @@ class EventsController extends AppController{
 			}
 		}
 	}
-	
 }

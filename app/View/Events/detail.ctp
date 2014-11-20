@@ -100,7 +100,7 @@ foreach($comments as $comment){
 	echo $this->Form->input('comment', array('type' => 'detail', 'placeholder' => 'Please comment'));
 	echo $this->Form->input('event_id', array('type' => 'hidden', 'value' => $event_id));
 	echo $this->Form->input('created', array('type' => 'hidden', 'value' => $nowtime));
-	echo $this->Form->input('user_id', array('type' => 'hidden', 'value' => $loginUser['id']));  //最終的にはhiddenにして、値を$userにする(Authの機能)
+	echo $this->Form->input('user_id', array('type' => 'hidden', 'value' => $loginUser['id']));
 	echo $this->Form->end('Add');
 ?>
 
