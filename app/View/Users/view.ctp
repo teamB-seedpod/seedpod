@@ -16,6 +16,7 @@ $nowtime = date("Y-m-d H:i:s");
 </p>
 
 <p class="pic" style="float:left;width:30%;"><?php echo $this->Upload->uploadImage($user, 'User.img'); ?></p>
+
 	<dl style="float:right;width:70%;">
 		<dt><?php echo __('Name'); ?></dt>
 		<dd>
@@ -79,7 +80,7 @@ $nowtime = date("Y-m-d H:i:s");
         <th>Hosting</th>
         <th>Participants</th>
     </tr>
-    <?php foreach($myOwnerEvents as $event): ?>
+    <?php foreach((array)$myOwnerEvents as $event): ?>
 	<tr>
 		<?php if($event['Event']['open_datetime'] > $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
@@ -120,7 +121,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<th>Hosting</th>
 		<th>Participants</th>
 	</tr>
-	<?php foreach($myOwnerEvents as $event): ?>
+	<?php foreach((array)$myOwnerEvents as $event): ?>
 	<tr>
 		<?php if($event['Event']['open_datetime'] < $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
@@ -171,7 +172,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<th>Hosting</th>
 		<th>Participants</th>
     </tr>
-    <?php foreach($myParticipantEvents as $event): ?>
+    <?php foreach((array)$myParticipantEvents as $event): ?>
 	<tr>
 		<?php if($event['Event']['open_datetime'] > $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
@@ -212,7 +213,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<th>Hosting</th>
 		<th>Participants</th>
 	</tr>
-	<?php foreach($myParticipantEvents as $event): ?>
+	<?php foreach((array)$myParticipantEvents as $event): ?>
 	<tr>
 		<?php if($event['Event']['open_datetime'] < $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>

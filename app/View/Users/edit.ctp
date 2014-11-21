@@ -61,7 +61,6 @@
                 'type' => 'textarea'
             )
         );
-
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
