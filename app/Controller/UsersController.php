@@ -84,14 +84,38 @@ class UsersController extends AppController {
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
         $this->set('user', $this->User->find('first', $options));
 
-        //GET OWNER EVENT
+        //GET OWNER EVENT: FUTURE
 		$options = array('conditions' => array('user_id' => $id));
         $this->set('myOwnerEvents', $this->Event->find('all', $options));
 
-        //GET PARTICIPANT EVENT
+        //GET OWNER EVENT: PAST : NOW NO NEED, LATER SETTING
+    	//$option_past = array(
+        //    'open_datetime < now()',
+        //    'conditions' => array(
+        //        'user_id' => $id,
+        //    )
+        //);
+	    //$this->set('myOwnerPastEvents', $this->Event->find('all', $option_past));
+
+        //GET PARTICIPANT EVENT: FUTURE
 		$options = array('conditions' => array('Participant.user_id' => $id));
-        $participantEvent = $this->Participant->find('all', $options);
-        $this->set('myParticipantEvents', $this->Participant->find('all', $options));
+        $participantEventIds = $this->Participant->find('all', $options);
+        $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+        $this->set('myParticipantEvents', $participantEvents); 
+
+        //GET PARTICIPANT EVENT: PAST : NOW NO NEED, LATER SETTING
+    	//$option_past = array(
+        //    'open_datetime < now()',
+        //    'conditions' => array(
+        //        'Participant.user_id' => $id,
+        //    )
+        //);
+        //$participantEventPastIds = $this->Participant->find('all', $option_past);
+        //$participantPastEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+        //$this->set('myParticipantPastEvents', $participantPastEvents);
+
+        //FOR SHOWING PARTICIPANT NAME
+		$this->set('users', $this->User->find('all'));
     }
 
 

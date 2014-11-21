@@ -7,10 +7,6 @@ class Participant extends AppModel{
     	'User' => array(	//このUserは配列の引数になる
     		'className'  => 'User',
     		'foreignKey' => 'user_id',
-        ),
-        'Event' => array(
-            'className' => 'Event',
-            'foreignKey' => 'event_id'
         )
     );
 
