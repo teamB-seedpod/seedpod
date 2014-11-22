@@ -18,5 +18,7 @@ class Comment extends AppModel{
 	        return $data;
 	 }
 
-
+	 public $validate = array(
+		'comment' => array('rule' => 'notEmpty')
+	);
 }

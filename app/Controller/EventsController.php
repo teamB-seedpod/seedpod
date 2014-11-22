@@ -79,12 +79,24 @@ class EventsController extends AppController{
 
 	public function create(){
 		if($this->request->is('post')){
-			$this->Event->create();
-			if($this->Event->save($this->request->data)){
-				$this->Session->setFlash(__('Your create has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			$dateTime = $this->request->data;
+			$openDateTime = $dateTime['Event']['open_datetime']['year'].'-'.$dateTime['Event']['open_datetime']['month'].'-'.$dateTime['Event']['open_datetime']['day'].' '.$dateTime['Event']['open_datetime']['hour'].':'.$dateTime['Event']['open_datetime']['min'].' '.$dateTime['Event']['open_datetime']['meridian'];
+			$closeDateTime = $dateTime['Event']['close_datetime']['year'].'-'.$dateTime['Event']['close_datetime']['month'].'-'.$dateTime['Event']['close_datetime']['day'].' '.$dateTime['Event']['close_datetime']['hour'].':'.$dateTime['Event']['close_datetime']['min'].' '.$dateTime['Event']['close_datetime']['meridian'];
+
+			if(strtotime($openDateTime) > strtotime($closeDateTime)){
+				$this->Session->setFlash(__('\'Close Datetime\' must be later than Open \'Datetime\''));
+				false;
+			}else if(strtotime($openDateTime) < strtotime(date("Y-m-d H:i:s"))){
+				$this->Session->setFlash(__('Please create future event'));
+				false;
+			}else{
+				$this->Event->create();
+				if($this->Event->save($this->request->data)){
+					$this->Session->setFlash(__('Your create has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
+				$this->Session->setFlash(__('Unable to create.'));
 			}
-			$this->Session->setFlash(__('Unable to create.'));
 		}
 	}
 
@@ -101,11 +113,23 @@ class EventsController extends AppController{
 		//編集ボタンが押された場合に、DBへの保存処理を行う
 		if($this->request->is(array('post', 'put'))){
 			$this->Event->id = $id;
-			if($this->Event->save($this->request->data)){
-				$this->Session->setFlash(__('Your event has been updated.'));
-				return $this->redirect(array('action' => 'detail', $id));
+			$dateTime = $this->request->data;
+			$openDateTime = $dateTime['Event']['open_datetime']['year'].'-'.$dateTime['Event']['open_datetime']['month'].'-'.$dateTime['Event']['open_datetime']['day'].' '.$dateTime['Event']['open_datetime']['hour'].':'.$dateTime['Event']['open_datetime']['min'].' '.$dateTime['Event']['open_datetime']['meridian'];
+			$closeDateTime = $dateTime['Event']['close_datetime']['year'].'-'.$dateTime['Event']['close_datetime']['month'].'-'.$dateTime['Event']['close_datetime']['day'].' '.$dateTime['Event']['close_datetime']['hour'].':'.$dateTime['Event']['close_datetime']['min'].' '.$dateTime['Event']['close_datetime']['meridian'];
+
+			if(strtotime($openDateTime) > strtotime($closeDateTime)){
+				$this->Session->setFlash(__('\'Close Datetime\' must be later than Open \'Datetime\''));
+				false;
+			}else if(strtotime($openDateTime) < strtotime(date("Y-m-d H:i:s"))){
+				$this->Session->setFlash(__('Please create future event'));
+				false;
+			}else{
+				if($this->Event->save($this->request->data)){
+					$this->Session->setFlash(__('Your event has been updated.'));
+					return $this->redirect(array('action' => 'detail', $id));
+				}
+				$this->Session->setFlash(__('Unable to update your post.'));
 			}
-			$this->Session->setFlash(__('Unable to update your post.'));
 		}
 
 		//editページにアクセスした際にフォームにデータをセットしておく
@@ -119,7 +143,9 @@ class EventsController extends AppController{
 			throw new MethodNotAllowException();
 		}
 
-		if($this->Event->delete($id)){
+		$data = array('Event' => array('id' => $id, 'del_flg' => 1));
+		$fields = array('del_flg');
+		if($this->Event->save($data, false, $fields)){
 			$this->Session->setFlash(__('The event with id: %s has been deleted.', h($id)));
 			return $this->redirect(array('action' => 'index'));
 		}
@@ -131,7 +157,9 @@ class EventsController extends AppController{
 			throw new MethodNotAllowException();
 		}
 
-		if($this->Comment->delete($id)){
+		$data = array('Comment' => array('id' => $id, 'del_flg' => 1));
+		$fields = array('del_flg');
+		if($this->Comment->save($data, false, $fields)){
 			$this->Session->setFlash(__('The comment with id: %s has been deleted.', h($id)));
 			return $this->redirect($this->referer());
 		}
