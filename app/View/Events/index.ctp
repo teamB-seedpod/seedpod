@@ -183,58 +183,52 @@ $nowtime = date("Y-m-d H:i:s");
 		<th>Participants</th>
 	</tr>
 
-	<?php foreach($past_events as $event): ?>
+	<?php $j=0; ?>
+	<?php foreach($events as $event): ?>
 	<?php if($event['Event']['del_flg'] != 1): ?>
 		<tr>
 			<?php if($event['Event']['open_datetime'] < $nowtime): ?>
-			<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
-			<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-			<td><?php echo date('M.d.Y  H:m', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:m', strtotime($event['Event']['close_datetime'])); ?></td>
-			<td>
-				<?php
-					echo $this->Html->link(h($event['User']['name']), array('controller' => 'users', 'action' => 'view', $event['User']['id']));
-					echo '　';
-				?>
-			</td>
-			<td><?php
-					$count=0;
-					for($i=0; $i<count($event['Participant']); $i++){
-						if($event['Participant'][$i]['status'] == 2){
-							//イベント参加予定のuser_idを出す
-							$id = h($event['Participant'][$i]['user_id']);
+				<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
+				<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
+				<td><?php echo date('M.d.Y  H:m', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:m', strtotime($event['Event']['close_datetime'])); ?></td>
+				<td>
+					<?php
+						echo $this->Html->link(h($event['User']['name']), array('controller' => 'users', 'action' => 'view', $event['User']['id']));
+						echo '　';
+					?>
+				</td>
+				<td><?php
+						$count=0;
+						for($i=0; $i<count($event['Participant']); $i++){
+							if($event['Participant'][$i]['status'] == 2){
+								//イベント参加予定のuser_idを出す
+								$id = h($event['Participant'][$i]['user_id']);
 
-							//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
-							foreach($users as $user){
-								$user_id = h($user['User']['id']);
-								if($user_id == $id){
-									echo $this->Html->link(h($user['User']['name']), array('controller' => 'users', 'action' => 'view', $user['User']['id']));
-									echo '　';
+								//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
+								foreach($users as $user){
+									$user_id = h($user['User']['id']);
+									if($user_id == $id){
+										echo $this->Html->link(h($user['User']['name']), array('controller' => 'users', 'action' => 'view', $user['User']['id']));
+										echo '　';
+									}
 								}
+								$count++;
 							}
-							$count++;
 						}
-					}
-				echo "   (".$count.")";
-				?>
-			</td>
+					echo "   (".$count.")";
+					?>
+				</td>
+				<?php $j++; ?>
 			<?php endif; ?>
 		</tr>
+	<?php
+		if($j == 3){
+			echo '</table>';
+			echo $this->Html->link('▶︎Look at all past events', array('action' => 'past'));
+			break;
+		}
+	?>
 	<?php endif; ?>
 	<?php endforeach; ?>
 	<?php unset($event); ?>
 </table>
-
-<?php
-	//ページネーション
-    echo $this->Paginator->counter(array(
-    'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-    ));
-?>
-
-<div class="paging">
-<?php
-    echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-    echo $this->Paginator->numbers(array('separator' => ''));
-    echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-?>
-</div>

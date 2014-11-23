@@ -20,10 +20,13 @@ class EventsController extends AppController{
 
         //userテーブルをdetail.ctpに渡す
 		$this->set('users', $this->User->find('all'));
+	}
 
-		//過去のイベントをページネーションしたものをindex.ctpに渡す！
-    	$past_events = $this->paginate('Event', array('open_datetime < now()'));
-	    $this->set('past_events', $past_events);
+	public function past(){
+		$events = $this->Event->find('all',array('order' => array('open_datetime' => 'DESC')));
+        $this->set('events', $events);
+
+		$this->set('users', $this->User->find('all'));
 	}
 
 	public function detail($id = null){    //このidはeventsのid
