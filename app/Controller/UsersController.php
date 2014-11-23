@@ -100,8 +100,10 @@ class UsersController extends AppController {
         //GET PARTICIPANT EVENT: FUTURE
 		$options = array('conditions' => array('Participant.user_id' => $id));
         $participantEventIds = $this->Participant->find('all', $options);
-        $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
-        $this->set('myParticipantEvents', $participantEvents); 
+        if($participantEventIds !== array()) {
+            $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+            $this->set('myParticipantEvents', $participantEvents); 
+        }
 
         //GET PARTICIPANT EVENT: PAST : NOW NO NEED, LATER SETTING
     	//$option_past = array(

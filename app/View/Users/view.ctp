@@ -71,6 +71,8 @@ $nowtime = date("Y-m-d H:i:s");
 
 <h2><?php echo 'OWNER EVENT'; ?></h2>
 
+<?php if($myOwnerEvents != array()) { ?>
+
 <h3>Future Events</h3>
 <table>
     <tr>
@@ -97,7 +99,7 @@ $nowtime = date("Y-m-d H:i:s");
 						foreach($users as $user){
 							$user_id = h($user['User']['id']);
 							if($user_id == $id){
-								echo h($user['User']['name'])."　";
+								echo h($user['User']['nickname']);
 							}
 						}
 						$count++;
@@ -153,6 +155,11 @@ $nowtime = date("Y-m-d H:i:s");
 	<?php endforeach; ?>
 	<?php unset($event); ?>
 </table>
+<?php
+} else {
+    echo "<p>NO DATA</p>";
+}
+?>
 
 
 <?php
@@ -163,6 +170,7 @@ $nowtime = date("Y-m-d H:i:s");
 
 <h2><?php echo 'PARTICIPANT EVENT'; ?></h2>
 
+<?php if(isset($myParticipantEvents)) { ?>
 <h3>Future Events</h3>
 <table>
 	<tr>
@@ -245,6 +253,12 @@ $nowtime = date("Y-m-d H:i:s");
 	<?php endforeach; ?>
 	<?php unset($event); ?>
 </table>
+<?php
+} else {
+    echo "<p>NO DATA</p>";
+}
+?>
+
 </div>
 
 <div class="actions">
