@@ -59,10 +59,33 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			<h1><?php echo $this->Html->link('Home', '/'); ?></h1>
 		</div>
 		<div id="content">
-
+			<div class="main">
 			<?php echo $this->Session->flash(); ?>
-
 			<?php echo $this->fetch('content'); ?>
+			</div>
+
+			<div class="actions">
+			<h3><?php echo __('Profile'); ?></h3>
+			<ul>
+	
+			<?php echo $this->Upload->uploadImage($loginUser, 'User.img', array('style'=>'thumb')); ?>
+
+				<li><?php echo $this->Html->link('・Edit profile', '/users/edit/'.$loginUser['id']); ?></li>
+				<li><?php echo $this->Html->link('・Your Event', '/users/view/'.$loginUser['id']); ?></li>
+			
+			</ul>
+			</div>
+
+			<div class="actions">
+			<h3><?php echo __('Menu'); ?></h3>
+			<ul>
+		
+				<li><?php echo $this->Html->link('・Create Event', '/Event/add/'); ?></li>
+				
+				<li><?php echo $this->Html->link('・Profile List', '/users/index/'); ?></li>
+
+			</ul>
+			</div>
 		</div>
 		<div id="footer">
 			<?php echo $this->Html->link(
