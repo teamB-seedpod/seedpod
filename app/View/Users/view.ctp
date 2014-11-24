@@ -93,9 +93,7 @@ $nowtime = date("Y-m-d H:i:s");
 				$count=0;
 				for($i=0; $i<count($event['Participant']); $i++){
 					if($event['Participant'][$i]['status'] == 2){
-						//イベント参加予定のuser_idを出す
 						$id = h($event['Participant'][$i]['user_id']);
-						//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
 						foreach($users as $user){
 							$user_id = h($user['User']['id']);
 							if($user_id == $id){
@@ -105,7 +103,7 @@ $nowtime = date("Y-m-d H:i:s");
 						$count++;
 					}
 				}
-			echo "   (".$count.")";
+			echo "  (".$count.")";
 			?>
 		</td>
 		<?php endif; ?>
@@ -134,20 +132,18 @@ $nowtime = date("Y-m-d H:i:s");
 				$count=0;
 				for($i=0; $i<count($event['Participant']); $i++){
 					if($event['Participant'][$i]['status'] == 2){
-						//イベント参加予定のuser_idを出す
 						$id = h($event['Participant'][$i]['user_id']);
 
-						//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
 						foreach($users as $user){
 							$user_id = h($user['User']['id']);
 							if($user_id == $id){
-								echo h($user['User']['name'])."　";
+								echo h($user['User']['name']);
 							}
 						}
 						$count++;
 					}
 				}
-			echo "   (".$count.")";
+			echo "  (".$count.")";
 			?>
 		</td>
 		<?php endif; ?>
@@ -191,9 +187,7 @@ $nowtime = date("Y-m-d H:i:s");
 				$count=0;
 				for($i=0; $i<count($event['Participant']); $i++){
 					if($event['Participant'][$i]['status'] == 2){
-						//イベント参加予定のuser_idを出す
 						$id = h($event['Participant'][$i]['user_id']);
-						//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
 						foreach($users as $user){
 							$user_id = h($user['User']['id']);
 							if($user_id == $id){
@@ -203,7 +197,7 @@ $nowtime = date("Y-m-d H:i:s");
 						$count++;
 					}
 				}
-			echo "   (".$count.")";
+			echo "  (".$count.")";
 			?>
 		</td>
 		<?php endif; ?>
@@ -232,20 +226,17 @@ $nowtime = date("Y-m-d H:i:s");
 				$count=0;
 				for($i=0; $i<count($event['Participant']); $i++){
 					if($event['Participant'][$i]['status'] == 2){
-						//イベント参加予定のuser_idを出す
 						$id = h($event['Participant'][$i]['user_id']);
-
-						//userDBを吐き出して上記のuser_idと一致したら名前を返す。めちゃくちゃ効率悪い。。。→findByでやる！
 						foreach($users as $user){
 							$user_id = h($user['User']['id']);
 							if($user_id == $id){
-								echo h($user['User']['name'])."　";
+								echo h($user['User']['name']);
 							}
 						}
 						$count++;
 					}
 				}
-			echo "   (".$count.")";
+			echo "  (".$count.")";
 			?>
 		</td>
 		<?php endif; ?>

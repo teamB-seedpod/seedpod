@@ -1,11 +1,11 @@
 <div class="users form">
 <?php echo $this->Form->create('User', array('type' => 'file')); ?>
-	<fieldset>
-		<legend><?php echo __('Sign up'); ?></legend>
-	<?php
-		echo $this->Form->input('email');
-		echo $this->Form->input('password');
-		echo $this->Form->input('name');
+    <fieldset>
+        <legend><?php echo __('Sign up'); ?></legend>
+    <?php
+        echo $this->Form->input('email');
+        echo $this->Form->input('password');
+        echo $this->Form->input('name');
         echo $this->Form->input('nickname');
 
         echo $this->Form->input(
@@ -36,14 +36,14 @@
             )
         );
 
-		echo $this->Form->input(
+        echo $this->Form->input(
             'coming_date',
             array(
                 'minYear' => date('Y') - 20,
                 'maxYear' => date('Y') + 20
             )
         );
-		echo $this->Form->input(
+        echo $this->Form->input(
             'graduating_date',
             array(
                 'minYear' => date('Y') - 20,
@@ -51,7 +51,7 @@
             )
         );
 
-		echo $this->Form->input('hobby');
+        echo $this->Form->input('hobby');
 
         echo $this->Form->input(
             'introduce',
@@ -59,14 +59,14 @@
                 'type' => 'textarea'
             )
         );
-	?>
-	</fieldset>
+    ?>
+    </fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+    <h3><?php echo __('Actions'); ?></h3>
+    <ul>
 
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-	</ul>
+        <li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
+    </ul>
 </div>
