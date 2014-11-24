@@ -25,7 +25,15 @@ class Event extends AppModel{
 			'className'  => 'Participant',
 			'foreignKey' => 'event_id',
 		)
-	);
+    );
+
+    //FOR myPaarticipantEvent(/users/view)
+    public function getMyParticipantEvent($participants) {
+        foreach($participants as $participant) {
+            $events = $this->find('all', array('conditions' => array('Event.id' => $participant['Participant']['event_id'])));
+        }
+        return $events;
+    }
 
 	public $actsAs = array( //Event Picture Setting
         'UploadPack.Upload' => array(
