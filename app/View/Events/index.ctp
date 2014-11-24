@@ -1,16 +1,25 @@
 <h2>Nexseed Billboard </h2>
-<?php echo $this->Html->link('Create', array('controller' => 'Information', 'action' => 'add')); ?>
+<?php
+	if(isset($loginUser)){
+		if($loginUser['role'] == 1){
+			echo $this->Html->link('Create', array('controller' => 'Information', 'action' => 'add')); 
+		}
+	}
+?>
 </br>
 <ul>
 	<?php foreach ($Information as $Info) :?>
 		<li>
 			<?php
-			echo $this->Html->link('Edit', array('controller' => 'Information', 'action'=>'edit', $Info['Information']['id']));
-			echo '  ';
-			echo $this->Form->postLink('Delete', array('controller' => 'Information', 'action'=>'delete', $Info['Information']['id']),
-				array('confirm'=>'sure?'));
-			echo '  ';
-
+			if(isset($loginUser)){
+				if($loginUser['role'] == 1){
+					echo $this->Html->link('Edit', array('controller' => 'Information', 'action'=>'edit', $Info['Information']['id']));
+					echo '  ';
+					echo $this->Form->postLink('Delete', array('controller' => 'Information', 'action'=>'delete', $Info['Information']['id']),
+						array('confirm'=>'sure?'));
+					echo '  ';
+				}
+			}
 			$createdTime = $Info['Information']['created'];
 			$val1 = substr($createdTime,0,10);
 			echo $val1;
@@ -111,13 +120,6 @@
 <br /><hr>
 
 <h2>Event List</h2>
-
-<?php
-	//Create Eventに飛ばすためのリンク 
-	echo $this->Html->link('Create Event', array('controller' => 'events', 'action' => 'create'));
-?>
-<br /><br />
-
 <?php
 $nowtime = date("Y-m-d H:i:s");
 ?>

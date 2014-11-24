@@ -12,6 +12,11 @@ class InformationController extends AppController{
 	}
 
 	public function add(){
+		$loginUser = $this->Auth->user();
+		if($loginUser['role'] != 1){
+			throw new NotFoundException(__('You are not allowed'));
+		}
+
 		if($this->request->is('post')) {
 			if($this->Information->save($this->request->data)) {
 				$this->Session->setFlash('Success!');
@@ -24,6 +29,11 @@ class InformationController extends AppController{
 	}
 
 	public function edit($id = null) {
+		$loginUser = $this->Auth->user();
+		if($loginUser['role'] != 1){
+			throw new NotFoundException(__('You are not allowed'));
+		}
+
 		$this->Information->id = $id;
 		if($this->request->is('get')) {
 			$this->request->data = $this->Information->read();
@@ -38,6 +48,11 @@ class InformationController extends AppController{
 	}
 
 	public function delete($id) {
+		$loginUser = $this->Auth->user();
+		if($loginUser['role'] != 1){
+			throw new NotFoundException(__('You are not allowed'));
+		}
+
 		$this->Information->id = $id;
 		if($this->request->is('get')) {
 			throw new MethodNotAllowedException();
@@ -47,9 +62,6 @@ class InformationController extends AppController{
 			$this->redirect(array('controller' => 'events', 'action'=>'index'));
 		}
 	}
-
-
-
 }
 
 
