@@ -6,16 +6,6 @@ class InformationController extends AppController{
 	public $helpers = array('Html', 'Form','Session');
 	public $components = array('Session');
 
-	public function index() {
-		$conditions = array(
-			'order' => 'created'
-		);
-
-		$this->set('Information', $this->Information->find('all', $conditions));
-		$this->set('title_for_layout', 'Nexseed');
-		$this->set('UsersInformation', $this->User->find('all'));
-	}
-
 	public function view($id = null) {
 		$this->Information->id = $id;
 		$this->set('InformationList', $this->Information->read());
@@ -25,7 +15,7 @@ class InformationController extends AppController{
 		if($this->request->is('post')) {
 			if($this->Information->save($this->request->data)) {
 				$this->Session->setFlash('Success!');
-				$this->redirect(array('action'=>'index'));
+				$this->redirect(array('controller' => 'events', 'action'=>'index'));
 			} else {
 				$this->Session->setFlash('failed!');
 
@@ -40,7 +30,7 @@ class InformationController extends AppController{
 		} else {
 			if($this->Information->save($this->request->data)) {
 				$this->Session->setFlash('success!');
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('controller' => 'events', 'action' => 'index'));
 			} else {
 				$this->Session->setFlash('failed!');
 			}
@@ -54,7 +44,7 @@ class InformationController extends AppController{
 		}
 		if($this->Information->delete($id)) {
 			$this->Session->setFlash('Deleted!');
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller' => 'events', 'action'=>'index'));
 		}
 	}
 

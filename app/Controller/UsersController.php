@@ -14,6 +14,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
+    public $uses = array('User', 'Event', 'Participant');
 	public $components = array('Paginator', 'Session');
     public $helpers = array('UploadPack.Upload', 'Paginator');
     public $paginate = array (
@@ -81,8 +82,45 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-		$this->set('user', $this->User->find('first', $options));
-	}
+        $this->set('user', $this->User->find('first', $options));
+
+        //GET OWNER EVENT: FUTURE
+		$options = array('conditions' => array('user_id' => $id));
+        $this->set('myOwnerEvents', $this->Event->find('all', $options));
+
+        //GET OWNER EVENT: PAST : NOW NO NEED, LATER SETTING
+    	//$option_past = array(
+        //    'open_datetime < now()',
+        //    'conditions' => array(
+        //        'user_id' => $id,
+        //    )
+        //);
+	    //$this->set('myOwnerPastEvents', $this->Event->find('all', $option_past));
+
+        //GET PARTICIPANT EVENT: FUTURE
+		$options = array('conditions' => array('Participant.user_id' => $id));
+        $participantEventIds = $this->Participant->find('all', $options);
+        if($participantEventIds !== array()) {
+            $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+            $this->set('myParticipantEvents', $participantEvents); 
+        }
+
+        //GET PARTICIPANT EVENT: PAST : NOW NO NEED, LATER SETTING
+    	//$option_past = array(
+        //    'open_datetime < now()',
+        //    'conditions' => array(
+        //        'Participant.user_id' => $id,
+        //    )
+        //);
+        //$participantEventPastIds = $this->Participant->find('all', $option_past);
+        //$participantPastEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+        //$this->set('myParticipantPastEvents', $participantPastEvents);
+
+        //FOR SHOWING PARTICIPANT NAME
+		$this->set('users', $this->User->find('all'));
+    }
+
+
 
 /**
  * add method
@@ -111,16 +149,19 @@ class UsersController extends AppController {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		if ($this->request->is(array('post', 'put'))) {
+        if ($this->request->is(array('post', 'put'))) {
+            $this->User->id = $id;
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
+				return $this->redirect('/users/view/'.$id);
+            } else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
-		} else {
-			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-			$this->request->data = $this->User->find('first', $options);
+        } else {
+            $options = array('conditions' => array('User.'.$this->User->primaryKey => $id));
+            $this->request->data = $this->User->find('first', $options);
+            $this->request->data['User']['password'] = null;
+            $this->set('user', $this->request->data); //for showing profile picture
 		}
 	}
 
@@ -136,13 +177,20 @@ class UsersController extends AppController {
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->User->delete()) {
+        
+        $this->request->allowMethod('post', 'delete');
+
+        //Delete by flag
+        $options = array('conditions' => array('User.'.$this->User->primaryKey => $id));
+        $data = $this->User->find('first', $options);
+        $data['User']['del_flg'] = '1';
+
+	    if ($this->User->save($data)) {
 			$this->Session->setFlash(__('The user has been deleted.'));
 		} else {
 			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect(array('action' => 'login'));
 	}
 
     public function login() {

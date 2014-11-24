@@ -56,7 +56,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     </div>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link('Home', '/Information'); ?></h1>
+			<h1><?php echo $this->Html->link('Home', '/'); ?></h1>
 		</div>
 		<div id="content">
 

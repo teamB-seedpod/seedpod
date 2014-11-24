@@ -4,10 +4,10 @@ class Event extends AppModel{
 
 	public $validate = array(
 		'title' => array('rule' => 'notEmpty'),
+		// 'open_datetime' => array('rule' => 'notEmpty'),
 		'open_datetime' => array('rule' => 'notEmpty'),
 		'close_datetime' => array('rule' => 'notEmpty'),
 		'place' => array('rule' => 'notEmpty'),
-		'detail' => array('rule' => 'notEmpty'),
 		'user_id' => array('rule' => 'notEmpty')
 	);
 
@@ -25,7 +25,15 @@ class Event extends AppModel{
 			'className'  => 'Participant',
 			'foreignKey' => 'event_id',
 		)
-	);
+    );
+
+    //FOR myPaarticipantEvent(/users/view)
+    public function getMyParticipantEvent($participants) {
+        foreach($participants as $participant) {
+            $events = $this->find('all', array('conditions' => array('Event.id' => $participant['Participant']['event_id'])));
+        }
+        return $events;
+    }
 
 	public $actsAs = array( //Event Picture Setting
         'UploadPack.Upload' => array(
@@ -33,8 +41,9 @@ class Event extends AppModel{
                 'quality' => 95,
                 'styles' => array(
                     'thumb' => '85x85',
-                )
+                ),
+                'default_url' => '/img/noimage.gif'
             )
-        ),
+        )
     );
 }

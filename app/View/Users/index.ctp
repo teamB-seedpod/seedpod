@@ -17,7 +17,7 @@
         echo $this->Form->end(__('Filter'));
     ?>
 
-	<?php foreach ($users as $user): ?>
+    <?php foreach ($users as $user): ?>
     <a href="/seedpod/users/view/<?php echo $user['User']['id'] ?>">
     <div class="col3">
         <p class="pic"><?php echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb')) ?></p>
@@ -51,12 +51,12 @@
     <?php
         echo $this->Paginator->counter(array('format' => 'TOTAL:{:count} | SHOWING:{:current} | ' ));
         echo $this->Paginator->counter(array('format' => 'PAGE:{:page}/{:pages}'));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
+    ?>  </p>
+    <div class="paging">
+    <?php
+        echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+        echo $this->Paginator->numbers(array('separator' => ''));
+        echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+    ?>
+    </div>
 </div>
