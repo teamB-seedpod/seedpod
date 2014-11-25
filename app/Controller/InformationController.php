@@ -53,13 +53,15 @@ class InformationController extends AppController{
 			throw new NotFoundException(__('You are not allowed'));
 		}
 
-		$this->Information->id = $id;
-		if($this->request->is('get')) {
-			throw new MethodNotAllowedException();
+		if($this->request->is('get')){
+			throw new MethodNotAllowException();
 		}
-		if($this->Information->delete($id)) {
-			$this->Session->setFlash('Deleted!');
-			$this->redirect(array('controller' => 'events', 'action'=>'index'));
+
+		$data = array('Information' => array('id' => $id, 'del_flg' => 1));
+		$fields = array('del_flg');
+		if($this->Information->save($data, false, $fields)){
+			$this->Session->setFlash(__('The information with id: %s has been deleted.', h($id)));
+			return $this->redirect(array('controller' => 'events' , 'action' => 'index'));
 		}
 	}
 }

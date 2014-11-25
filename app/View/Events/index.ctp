@@ -9,30 +9,36 @@
 </br>
 <ul>
 	<?php foreach ($Information as $Info) :?>
-		<li>
-			<?php
-			if(isset($loginUser)){
-				if($loginUser['role'] == 1){
-					echo $this->Html->link('Edit', array('controller' => 'Information', 'action'=>'edit', $Info['Information']['id']));
-					echo '  ';
-					echo $this->Form->postLink('Delete', array('controller' => 'Information', 'action'=>'delete', $Info['Information']['id']),
-						array('confirm'=>'sure?'));
-					echo '  ';
+		<?php if($Info['Information']['del_flg'] != 1): ?>
+			<li>
+				<?php
+				if(isset($loginUser)){
+					if($loginUser['role'] == 1){
+						echo $this->Html->link('Edit', array('controller' => 'Information', 'action'=>'edit', $Info['Information']['id']));
+						echo '  ';
+						echo $this->Form->postLink('Delete', array('controller' => 'Information', 'action'=>'delete', $Info['Information']['id']),
+							array('confirm'=>'sure?'));
+						echo '  ';
+					}
 				}
-			}
-			$createdTime = $Info['Information']['created'];
-			$val1 = substr($createdTime,0,10);
-			echo $val1;
-			echo '  ';
-			echo $this->Html->link($Info['Information']['title'],'/Information/view/'.$Info['Information']['id']);
-			?>
-		</li>
+				$createdTime = $Info['Information']['created'];
+				$val1 = substr($createdTime,0,10);
+				echo $val1;
+				echo '  ';
+				echo $this->Html->link($Info['Information']['title'],'/Information/view/'.$Info['Information']['id']);
+				?>
+			</li>
+		<?php endif; ?>
 	<?php endforeach; ?>
 
 	<?php foreach ($UsersInformation as $UserInfo) :?>
 	<?php
 		$Birthday = $UserInfo['User']['birthday'];
 		$Username = $UserInfo['User']['name'];
+		$UserId = $UserInfo['User']['id'];
+		$block_flg = $UserInfo['User']['block_flg'];
+		$del_flg = $UserInfo['User']['del_flg'];
+		$byebye_flg = $UserInfo['User']['byebye_flg'];
 
 		list($year, $mon, $day) = explode("-", $Birthday); 
 		
@@ -49,6 +55,10 @@
 		$Birthdays[] = array(
 				"Tanjyoubi" => $SubBirthday,
 				"namae" => $Username,
+				"id" => $UserId,
+				"block_flg" => $block_flg,
+				"del_flg" => $del_flg,
+				"byebye_flg" => $byebye_flg
 		);
 
 	?>
@@ -56,13 +66,12 @@
 	<?php endforeach; ?>
 
 	<?php
-
 		foreach ($Birthdays as $key => $value) {
 			$data[$key] = $value['Tanjyoubi'];
 		}
 
 		$hoge = array_multisort($data, SORT_ASC, $Birthdays);
-	
+
 		for ($i = 0; $i < count($Birthdays); $i++) {		
 			$Birthdate = date("Y-m-d", $Birthdays[$i]['Tanjyoubi']);
 			list($year, $mon, $day) = explode("-", $Birthdate); 
@@ -70,19 +79,30 @@
 			$BirthdayPersonName = $Birthdays[$i]['namae'];
 			$timeend_birthday = mktime(0, 0, 0, $mon, $day, $currentYear);
 			$timestart_birthday = $timeend_birthday -604800;
+			$userId = $block_flg = $Birthdays[$i]['id'];
+			$block_flg = $Birthdays[$i]['block_flg'];
+			$del_flg = $Birthdays[$i]['del_flg'];
+			$byebye_flg = $Birthdays[$i]['byebye_flg'];
 		
 			if($currentMonth == $mon && $currentDay == $day) {
+				if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 					echo '<li>';
-					echo 'Today is '.$BirthdayPersonName.'\'s Birthday';
+					echo 'Today is ';
+					echo $this->Html->link(h($BirthdayPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+					echo '\'s Birthday';
 					echo '</li>';
+				}
 			};
 		
 			if($currenttime >= $timestart_birthday && $currenttime <= $timeend_birthday) {
+				if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 					echo '<li>';
-					echo $day.'/'.$mon.' is '.$BirthdayPersonName.'\'s Birthday';
+					echo $day.'/'.$mon.' is ';
+					echo $this->Html->link(h($BirthdayPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+					echo '\'s Birthday';
 					echo '</li>';
+				}
 			};
-		
 		}
 	
 	?>
@@ -93,6 +113,10 @@
 
 		$graduationDate = $UserInfo['User']['graduating_date'];
 		$graduationPersonName = $UserInfo['User']['name'];
+		$UserId = $UserInfo['User']['id'];
+		$block_flg = $UserInfo['User']['block_flg'];
+		$del_flg = $UserInfo['User']['del_flg'];
+		$byebye_flg = $UserInfo['User']['byebye_flg'];
 
 		list($year, $mon, $day) = explode("-", $graduationDate); 
 		
@@ -100,15 +124,23 @@
 		$timestart_graduation = $timeend_graduation -604800;
 
 		if($currentMonth == $mon && $currentDay == $day){
-			echo '<li>';
-			echo 'Today is '.$graduationPersonName.'\'s graduation!';
-			echo '</li>';
+			if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
+				echo '<li>';
+				echo 'Today is ';
+				echo $this->Html->link(h($graduationPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+				echo '\'s graduation!';
+				echo '</li>';
+			}
 		};
 
 		if($currenttime >= $timestart_graduation && $currenttime <= $timeend_graduation){
-			echo '<li>';
-			echo $day.'/'.$mon.' is '.$graduationPersonName.'\'s graduation date!';
-			echo '</li>';
+			if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
+				echo '<li>';
+				echo $day.'/'.$mon.' is ';
+				echo $this->Html->link(h($graduationPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+				echo '\'s graduation date!';
+				echo '</li>';
+			}
 		};
 
 	?>

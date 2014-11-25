@@ -6,5 +6,3 @@ echo $this->Form->input('title');
 echo $this->Form->input('detail', array('rows'=>3));
 echo $this->Form->end('Save!');
 ?>
-
-

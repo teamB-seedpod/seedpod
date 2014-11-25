@@ -31,12 +31,12 @@ class EventsController extends AppController{
 
 	public function detail($id = null){    //このidはeventsのid
 		if(!$id){
-			throw new NotFoundException(__('Invalid post'));
+			throw new NotFoundException(__('Not found'));
 		}
 
 		$event = $this->Event->findById($id);
 		if(!$event){
-			throw new NotFoundException(__('Invalid post'));
+			throw new NotFoundException(__('Not found'));
 		}
 		$this->set('event', $event);
 
@@ -105,12 +105,12 @@ class EventsController extends AppController{
 
 	public function edit($id = null){
 		if(!$id){
-			throw new NotFoundException(__('Invalid post'));
+			throw new NotFoundException(__('Invalid'));
 		}
 
 		$event = $this->Event->findById($id);
 		if(!$event){
-			throw new NotFoundException(__('Invalid post'));
+			throw new NotFoundException(__('Invalid'));
 		}
 
 		//編集ボタンが押された場合に、DBへの保存処理を行う
@@ -277,7 +277,7 @@ class EventsController extends AppController{
 
     public function invite($id){  //このidはEventのid
     	if(!$id){
-			throw new NotFoundException(__('Invalid post'));
+			throw new NotFoundException(__('Invalid'));
 		}
 
 		$event = $this->Event->findById($id);
