@@ -73,12 +73,12 @@ class UsersController extends AppController {
             if($this->Session->check('sort')) {
                 $sort = $this->Session->read('sort');
                 if ($sort == '0') {
-                    $this->set('users', $this->Paginator->paginate('del_flg' => '0'));
+                    $this->set('users', $this->Paginator->paginate('User', array('del_flg' => '0')));
                 } else { 
                     $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort,'del_flg' => '0')));
                 }
             } else {
-                $this->set('users', $this->Paginator->paginate('del_flg' => '0'));
+                $this->set('users', $this->Paginator->paginate('User', array('del_flg' => '0')));
             }
         }
 	}

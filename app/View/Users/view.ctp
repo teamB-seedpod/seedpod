@@ -10,6 +10,11 @@ $nowtime = date("Y-m-d H:i:s");
     if(isset($loginUser)) {
         if($user['User']['id'] == $loginUser['id']) {        
             echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id']));
+            echo $this->Form->postLink(
+            	'Delete User',
+	            array('action' => 'delete', $user['User']['id']),
+	            array('confirm' => 'Are you sure?')
+	            );
         }
     }
 ?>
