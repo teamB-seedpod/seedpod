@@ -101,6 +101,17 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 endforeach;
                 ?>
 
+                <h4>Invited Event</h4>
+                <?php
+                if(isset($loginMyInvitedEvents)):
+                foreach((array)$loginMyInvitedEvents as $event):
+                    if($event['Event']['open_datetime'] > $nowtime):
+                        echo '<li><a href="/seedpod/events/detail/'.$event['Event']['id'].'">'.$event['Event']['title'].'('.count($event['Participant']).')</a></li>';
+                    endif;
+                endforeach;
+                endif;
+                ?>
+
             </div>
 
 			<div class="actions">
