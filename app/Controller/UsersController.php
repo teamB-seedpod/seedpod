@@ -214,9 +214,16 @@ class UsersController extends AppController {
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect('/');
             } else {
                 $this->Session->setFlash(__('Invalid email or password, try again'));
+            }
+        } else if ($this->Auth->user()) {
+            $loginUser = $this->Auth->user();
+            if ($loginUser['del_flg'] == 0 && $loginUser['role'] != 0) {
+                return $this->redirect('/');
+            } else if($loginUser['del_flg'] == 1) {
+                return $this->redirect(array('action' => 'logout'));
             }
         }
     }
