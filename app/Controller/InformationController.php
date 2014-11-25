@@ -3,7 +3,7 @@
 
 class InformationController extends AppController{
 	public $uses = array('User', 'Information');
-	public $helpers = array('Html', 'Form','Session');
+	public $helpers = array('Html', 'Form', 'Session', 'UploadPack.Upload');
 	public $components = array('Session');
 
 	public function view($id = null) {

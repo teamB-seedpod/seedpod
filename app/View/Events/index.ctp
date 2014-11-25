@@ -117,7 +117,7 @@
 
 </ul>
 
-<br /><hr>
+<br /><br /><hr><br />
 
 <h2>Event List</h2>
 <?php
