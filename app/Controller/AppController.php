@@ -31,6 +31,7 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    public $uses = array('User', 'Event', 'Participant');
     public $components = array(
         'DebugKit.Toolbar',
         'Auth' => array(
@@ -56,6 +57,18 @@ class AppController extends Controller {
         if ($this->Auth->user()) {
             $loginUser = $this->Auth->user();
             $this->set('loginUser', $loginUser);
-        }
+
+            //Setting for common-left: get myowner events data
+            $options = array('conditions' => array('user_id' => $loginUser['id']));
+            $this->set('loginMyOwnerEvents', $this->Event->find('all', $options));
+
+            //Setting for common-left: get myParticipant events data
+            $options = array('conditions' => array('Participant.user_id' => $loginUser['id']));
+            $participantEventIds = $this->Participant->find('all', $options);
+            if($participantEventIds !== array()) {
+                $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+                $this->set('loginMyParticipantEvents', $participantEvents); 
+            }
+        }        
     }
 }

@@ -1,0 +1,35 @@
+@charset UTF-8;
+
+.profile {
+    display: table;
+    height: 85px;
+    margin-bottom: 15px;
+}
+
+.profile h2 {
+    display:table-cell;
+    vertical-align:middle;
+    padding-left:10px;
+}
+
+.myevent h3, .myprofile h3, .actions h3 {
+    margin-top: 20px;
+	padding-top: 0;
+	color:#777;
+    border-bottom: 1px dotted #777;
+}
+
+.myevent h4 {
+    margin-top: 10px;
+}
+
+.myevent li {
+    list-style: none;
+    margin-left: 5px;
+}
+
+.leftside {
+	float:left;
+	width:16%;
+	padding:10px 1.5%;
+}
