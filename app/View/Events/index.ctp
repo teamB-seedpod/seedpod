@@ -79,6 +79,7 @@
 			$BirthdayPersonName = $Birthdays[$i]['namae'];
 			$timeend_birthday = mktime(0, 0, 0, $mon, $day, $currentYear);
 			$timestart_birthday = $timeend_birthday -604800;
+			$userId = $block_flg = $Birthdays[$i]['id'];
 			$block_flg = $Birthdays[$i]['block_flg'];
 			$del_flg = $Birthdays[$i]['del_flg'];
 			$byebye_flg = $Birthdays[$i]['byebye_flg'];
@@ -86,7 +87,9 @@
 			if($currentMonth == $mon && $currentDay == $day) {
 				if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 					echo '<li>';
-					echo 'Today is '.$BirthdayPersonName.'\'s Birthday';
+					echo 'Today is ';
+					echo $this->Html->link(h($BirthdayPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+					echo '\'s Birthday';
 					echo '</li>';
 				}
 			};
@@ -94,7 +97,9 @@
 			if($currenttime >= $timestart_birthday && $currenttime <= $timeend_birthday) {
 				if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 					echo '<li>';
-					echo $day.'/'.$mon.' is '.$BirthdayPersonName.'\'s Birthday';
+					echo $day.'/'.$mon.' is ';
+					echo $this->Html->link(h($BirthdayPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+					echo '\'s Birthday';
 					echo '</li>';
 				}
 			};
@@ -108,6 +113,7 @@
 
 		$graduationDate = $UserInfo['User']['graduating_date'];
 		$graduationPersonName = $UserInfo['User']['name'];
+		$UserId = $UserInfo['User']['id'];
 		$block_flg = $UserInfo['User']['block_flg'];
 		$del_flg = $UserInfo['User']['del_flg'];
 		$byebye_flg = $UserInfo['User']['byebye_flg'];
@@ -120,7 +126,9 @@
 		if($currentMonth == $mon && $currentDay == $day){
 			if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 				echo '<li>';
-				echo 'Today is '.$graduationPersonName.'\'s graduation!';
+				echo 'Today is ';
+				echo $this->Html->link(h($graduationPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+				echo '\'s graduation!';
 				echo '</li>';
 			}
 		};
@@ -128,7 +136,9 @@
 		if($currenttime >= $timestart_graduation && $currenttime <= $timeend_graduation){
 			if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 				echo '<li>';
-				echo $day.'/'.$mon.' is '.$graduationPersonName.'\'s graduation date!';
+				echo $day.'/'.$mon.' is ';
+				echo $this->Html->link(h($graduationPersonName), array('controller' => 'users', 'action' => 'view', $userId));
+				echo '\'s graduation date!';
 				echo '</li>';
 			}
 		};

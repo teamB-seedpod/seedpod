@@ -1,6 +1,6 @@
 <?php echo $this->Html->css('event'); ?>
 
-<?php if($event['Event']['del_flg'] == 1){ throw new NotFoundException(__('Invalid post')); } ?>
+<?php if($event['Event']['del_flg'] == 1){ throw new NotFoundException(__('Not allowed to access')); } ?>
 
 <?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?>
 <h2><?php echo h($event['Event']['title']); ?></h2>

@@ -1,4 +1,5 @@
 <div class="users index">
+    <?php $total = $this->Paginator->counter(array('format' => '{:count}' )); ?>
     <h2><?php echo 'Nexseed Members!! Now total '.$total.' people!!' ?></h2>
 
     <?php

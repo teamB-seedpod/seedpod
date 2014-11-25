@@ -56,7 +56,6 @@ class UsersController extends AppController {
     public function index() {
         $this->Paginator->settings = $this->paginate;
         $this->User->recursive = 0;
-        $this->set('total', $this->User->find('count'));
 
         if ($this->request->is('post')) {
             $sort = $this->request->data['Sort']['group_id'];
@@ -66,20 +65,20 @@ class UsersController extends AppController {
             $this->request->params['named']['page'] = 1;
             
             if ($sort == '0') {
-                $this->set('users', $this->Paginator->paginate());
+                $this->set('users', $this->Paginator->paginate('User', array('del_flg' => '0')));
             } else {
-                $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort)));
+                $this->set('users', $this->Paginator->paginate('User', array('del_flg' => '0', 'group_id' => $sort)));
             }
         } else {
             if($this->Session->check('sort')) {
                 $sort = $this->Session->read('sort');
                 if ($sort == '0') {
-                    $this->set('users', $this->Paginator->paginate());
+                    $this->set('users', $this->Paginator->paginate('del_flg' => '0'));
                 } else { 
-                    $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort)));
+                    $this->set('users', $this->Paginator->paginate('User', array('group_id' => $sort,'del_flg' => '0')));
                 }
             } else {
-                $this->set('users', $this->Paginator->paginate());
+                $this->set('users', $this->Paginator->paginate('del_flg' => '0'));
             }
         }
 	}
@@ -92,7 +91,8 @@ class UsersController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->User->exists($id)) {
+        $user = $this->User->findById($id);
+		if (!$this->User->exists($id) || $user['User']['del_flg'] == 1) {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
@@ -204,7 +204,7 @@ class UsersController extends AppController {
 		} else {
 			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
 		}
-		return $this->redirect(array('action' => 'login'));
+		return $this->redirect(array('action' => 'logout'));
 	}
 
     public function login() {
