@@ -53,18 +53,8 @@ class AppController extends Controller {
         }
     }
 
-<<<<<<< HEAD
-    public function beforeFilter() {
-=======
-<<<<<<< HEAD
     public function beforeFilter(){
         $this->Auth->allow();
-=======
-    public function beforeFilter() {
-
-        $this->Auth->allow(); 
->>>>>>> e372864a00ac792ad0fb97c362797855948bfa60
->>>>>>> 7683d9210e289ee3b35607b3bed57a2aabc78174
         if ($this->Auth->user()) {
             $loginUser = $this->Auth->user();
             $this->set('loginUser', $loginUser);

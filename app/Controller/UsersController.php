@@ -54,10 +54,6 @@ class UsersController extends AppController {
  * @return void
  */
     public function index() {
-<<<<<<< HEAD
-=======
-
->>>>>>> e372864a00ac792ad0fb97c362797855948bfa60
         $this->Paginator->settings = $this->paginate;
         $this->User->recursive = 0;
         $this->set('total', $this->User->find('count'));
