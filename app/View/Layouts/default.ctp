@@ -51,6 +51,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             <div style="float:right;padding:10px;">
             <?php
                 if(isset($loginUser)):
+                    if ($loginUser['role'] == 0) {
+                        echo '<p style="font-size:16px;color:yellow;font-weight:bold;">You are not approved, please wait.</p>';
+                    }
                     echo 'Welcome ';
                     echo h($loginUser['name']);
                     echo '! ';
@@ -63,13 +66,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             ?>
             </div>
 		</div>
-		<div id="content">
+        <div id="content">
+            <?php if(isset($loginUser) && $loginUser['role'] != 0) { ?>
 			<div class="main">
 			<?php echo $this->Session->flash(); ?>
 			<?php echo $this->fetch('content'); ?>
 			</div>
 
-            <?php if(isset($loginUser)): ?>
             <div class="leftside">
             <div class="myprofile">
                 <div class="profile">
@@ -93,12 +96,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 ?>
 
                 <h4>Participant Event</h4>
-                <?php 
+                <?php
+                if(isset($loginMyParticipantEvents)):
                 foreach((array)$loginMyParticipantEvents as $event):
                     if($event['Event']['open_datetime'] > $nowtime):
                         echo '<li><a href="/seedpod/events/detail/'.$event['Event']['id'].'">'.$event['Event']['title'].'('.count($event['Participant']).')</a></li>';
                     endif;
                 endforeach;
+                endif;
                 ?>
 
             </div>
@@ -109,15 +114,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				    <li><?php echo $this->Html->link('Create Event', '/events/create/'); ?></li>
 				    <li><?php echo $this->Html->link('Profile List', '/users/index/'); ?></li>
                 </ul>
-
             </div>
             </div>
+            <?php 
+            } else { ?>
+			<?php echo $this->Session->flash(); ?>
+			<?php echo $this->fetch('content'); ?>
+            <?php } ?>
         </div><!--/container-->
+
 		<div id="footer">
             <p align="center">SEED POD@inc All Right Reserved</p>
 		</div>
 	</div>
-<?php endif; ?>
 
 <script>
 $(function(){
