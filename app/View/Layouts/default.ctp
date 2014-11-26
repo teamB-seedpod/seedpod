@@ -182,7 +182,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				        $flg = false;	        
 				        for ($i = 0; $i < count($eventDates); $i++) {
 				        	if($monNum == $eventDates[$i]['Month'] && $year == $eventDates[$i]['Year'] && $value['day'] ==$eventDates[$i]['date']) {
-				         	$flg = true;
+				         	    $flg = true;
 				     		}
 						}
 						if($flg == true) {
