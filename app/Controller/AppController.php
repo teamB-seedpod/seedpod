@@ -69,6 +69,9 @@ class AppController extends Controller {
             if($participantEventIds !== array()) {
                 $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
                 $this->set('loginMyParticipantEvents', $participantEvents); 
+
+            $events = $this->Event->find('all');
+            $this->set('events', $events);
             }
         }        
     }

@@ -65,7 +65,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 endif;
             ?>
             </div>
-		</div>
+
         <div id="content">
             <?php if(isset($loginUser) && $loginUser['role'] != 0) { ?>
 			<div class="main">
@@ -115,6 +115,116 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				    <li><?php echo $this->Html->link('Profile List', '/users/index/'); ?></li>
                 </ul>
             </div>
+
+            <div id="minicalendar">
+			<?php foreach ($events as $event) {
+				$eventDate = $event['Event']['open_datetime'];
+				list($eventYear, $eventMon, $eventDay) = explode("-", $eventDate); 
+				$eventDate = substr("$eventDay", 0, 2);
+				$eventDates[] = array("Year"=>$eventYear,"Month"=>$eventMon,"date"=>$eventDate);
+
+			}
+			?>
+			<?php
+
+				$year = date('Y');
+				$month = date('n');
+				$monNum = date('m');
+
+				$last_day = date('j', mktime(0, 0, 0, $month+1, 0, $year));
+
+				$calendar = array();
+				$j = 0;
+				for ($i = 1; $i < $last_day + 1; $i++) {
+				    $week = date('w', mktime(0, 0, 0, $month, $i, $year));
+
+					
+				    if ($i == 1) {
+				        for ($s = 1; $s <= $week; $s++) {
+				            $calendar[$j]['day'] = '';
+				            $j++;
+				        }
+				    }
+
+				    $calendar[$j]['day'] = $i;
+				    $j++;
+
+				    if ($i == $last_day) {
+				 
+				        for ($e = 1; $e <= 6 - $week; $e++) {
+				
+				            $calendar[$j]['day'] = '';
+				            $j++;
+				 
+				        }
+				    }
+				}
+				
+				?>
+				
+				<?php echo date('F'); ?>/<?php echo $year; ?>
+				<br>
+				<br>
+				<table style="width: 78px;" >
+
+				    <tr>
+				        <th>Sun</th>
+				        <th>Mon</th>
+				        <th>Tue</th>
+				        <th>Wed</th>
+				        <th>Thu</th>
+				        <th>Fri</th>
+				        <th>Sat</th>
+				    </tr>
+				    <tr>
+				    <?php $cnt = 0; ?>
+				    <?php foreach ($calendar as $key => $value): ?>
+				        <td>
+				        <?php $cnt++; ?>
+
+				        <?php
+				        $flg = false;
+				        for ($i = 0; $i < count($eventDates); $i++) {
+				        	if($monNum == $eventDates[$i]['Month'] && $year == $eventDates[$i]['Year'] && $value['day'] ==$eventDates[$i]['date']) {
+				         echo $this->Html->link($value['day'], '/events/index/'.$loginUser['id']);
+				         	$flg = true;
+				     		}	
+						}
+						if (!$flg) {
+							echo $value['day'];
+						}
+
+				     ?>
+				        </td>
+				    <?php if ($cnt == 7): ?>
+				    </tr>
+				    <tr>
+				    <?php $cnt = 0; ?>
+				    <?php endif; ?>
+				 
+				    <?php endforeach; ?>
+				    </tr>
+				</table>
+				
+				<style type="text/css">
+				table {
+				    width: 80%;
+				}
+				table th {
+				    background: #EEEEEE;
+				}
+				table th,
+				table td {
+					width: 10px;
+				    border: 1px solid #CCCCCC;
+				    text-align: center;
+				    font-size: 5px;
+				    padding: 5px;
+				}
+				</style>
+
+			</div><!--minicalendar-->
+
             </div>
             <?php 
             } else { ?>
