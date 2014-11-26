@@ -89,7 +89,7 @@ class EventsController extends AppController{
 			if(strtotime($openDateTime) > strtotime($closeDateTime)){
 				$this->Session->setFlash(__('\'Close Datetime\' must be later than Open \'Datetime\''));
 				false;
-			}else if(strtotime($openDateTime) < strtotime(date("Y-m-d H:i:s"))){
+			}else if(strtotime($openDateTime) <= strtotime(date("Y-m-d H:i:s"))){
 				$this->Session->setFlash(__('Please create future event'));
 				false;
 			}else{

@@ -15,7 +15,7 @@ class Participant extends AppModel{
 			$loginUser = $_SESSION['Auth']['User']['id'];  //Authコンポーネントはモデル内で使えないのでこのように取得
 	 		$conditions = array(
 	 			'Participant.event_id' => $event_id,
-	 			'Participant.user_id' => $loginUser['id']
+	 			'Participant.user_id' => $loginUser
 	 		);
 
 	        $data = $this->find('all', array('conditions' => $conditions));
