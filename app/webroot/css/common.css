@@ -12,7 +12,7 @@
     padding-left:10px;
 }
 
-.myevent h3, .myprofile h3, .actions h3 {
+.myevent h3, .myprofile h3, .actions h3, #minicalendar h3 {
     margin-top: 20px;
 	padding-top: 0;
 	color:#777;
@@ -32,4 +32,18 @@
 	float:left;
 	width:16%;
 	padding:10px 1.5%;
+}
+
+.calender th {
+    background: #EEEEEE;
+}
+
+.calender th,
+.calender td {
+	width: 10px;
+    border: 1px solid #CCCCCC;
+    text-align: center;
+    font-size: 5px;
+    max-width: 15px;
+    padding: 4px;
 }

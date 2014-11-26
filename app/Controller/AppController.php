@@ -70,6 +70,10 @@ class AppController extends Controller {
                 $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
                 $this->set('loginMyParticipantEvents', $participantEvents); 
             }
+
+            //Setting for miniCalender
+            $events = $this->Event->find('all');
+            $this->set('events', $events);
         }        
     }
 }
