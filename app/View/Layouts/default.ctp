@@ -172,23 +172,26 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				        <th>Sat</th>
 				    </tr>
 				    <tr>
+
 				    <?php $cnt = 0; ?>
 				    <?php foreach ($calendar as $key => $value): ?>
 				        <td>
 				        <?php $cnt++; ?>
-
+				        
 				        <?php
-				        $flg = false;
+				        $flg = false;	        
 				        for ($i = 0; $i < count($eventDates); $i++) {
 				        	if($monNum == $eventDates[$i]['Month'] && $year == $eventDates[$i]['Year'] && $value['day'] ==$eventDates[$i]['date']) {
-				                echo $this->Html->link($value['day'], '/events/index/'.$loginUser['id']);
-				         	    $flg = true;
-				     		}	
+				         	$flg = true;
+				     		}
 						}
-						if (!$flg) {
+						if($flg == true) {
+							echo $this->Html->link($value['day'], '/events/index/'.$loginUser['id']);
+						}
+						if($flg == false){
 							echo $value['day'];
 						}
-				     ?>
+				    ?>
 				        </td>
 				    <?php if ($cnt == 7): ?>
 				    </tr>
