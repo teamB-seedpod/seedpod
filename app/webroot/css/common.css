@@ -12,7 +12,7 @@
     padding-left:10px;
 }
 
-.myevent h3, .myprofile h3, .actions h3 {
+.myevent h3, .myprofile h3, .actions h3, #minicalendar h3 {
     margin-top: 20px;
 	padding-top: 0;
 	color:#777;

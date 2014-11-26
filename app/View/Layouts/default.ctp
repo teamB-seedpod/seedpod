@@ -163,9 +163,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				
 				?>
 				
-				<?php echo date('F'); ?>/<?php echo $year; ?>
-				<br>
-				<br>
+				<h3><?php echo date('F'); ?>/<?php echo $year; ?></h3>
 				<table class="calender">
 
 				    <tr>
