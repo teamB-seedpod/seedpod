@@ -137,9 +137,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				$calendar = array();
 				$j = 0;
 				for ($i = 1; $i < $last_day + 1; $i++) {
-				    $week = date('w', mktime(0, 0, 0, $month, $i, $year));
+                    $week = date('w', mktime(0, 0, 0, $month, $i, $year));
 
-					
 				    if ($i == 1) {
 				        for ($s = 1; $s <= $week; $s++) {
 				            $calendar[$j]['day'] = '';
@@ -151,12 +150,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				    $j++;
 
 				    if ($i == $last_day) {
-				 
 				        for ($e = 1; $e <= 6 - $week; $e++) {
-				
 				            $calendar[$j]['day'] = '';
 				            $j++;
-				 
 				        }
 				    }
 				}
@@ -185,14 +181,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				        $flg = false;
 				        for ($i = 0; $i < count($eventDates); $i++) {
 				        	if($monNum == $eventDates[$i]['Month'] && $year == $eventDates[$i]['Year'] && $value['day'] ==$eventDates[$i]['date']) {
-				         echo $this->Html->link($value['day'], '/events/index/'.$loginUser['id']);
-				         	$flg = true;
+				                echo $this->Html->link($value['day'], '/events/index/'.$loginUser['id']);
+				         	    $flg = true;
 				     		}	
 						}
 						if (!$flg) {
 							echo $value['day'];
 						}
-
 				     ?>
 				        </td>
 				    <?php if ($cnt == 7): ?>
@@ -200,7 +195,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				    <tr>
 				    <?php $cnt = 0; ?>
 				    <?php endif; ?>
-				 
 				    <?php endforeach; ?>
 				    </tr>
 				</table>
