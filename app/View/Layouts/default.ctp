@@ -65,6 +65,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 endif;
             ?>
             </div>
+        </div>
 
         <div id="content">
             <?php if(isset($loginUser) && $loginUser['role'] != 0) { ?>
@@ -165,7 +166,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<?php echo date('F'); ?>/<?php echo $year; ?>
 				<br>
 				<br>
-				<table style="width: 78px;" >
+				<table class="calender">
 
 				    <tr>
 				        <th>Sun</th>
@@ -206,22 +207,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				    </tr>
 				</table>
 				
-				<style type="text/css">
-				table {
-				    width: 80%;
-				}
-				table th {
-				    background: #EEEEEE;
-				}
-				table th,
-				table td {
-					width: 10px;
-				    border: 1px solid #CCCCCC;
-				    text-align: center;
-				    font-size: 5px;
-				    padding: 5px;
-				}
-				</style>
 
 			</div><!--minicalendar-->
 
