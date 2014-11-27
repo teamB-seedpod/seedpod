@@ -116,10 +116,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
                 <h4>Participant Event</h4>
                 <?php
+
                 if(isset($loginMyParticipantEvents)):
                 foreach((array)$loginMyParticipantEvents as $event):
                     if($event['Event']['open_datetime'] > $nowtime):
-
                         $participantCount = 0;
                         foreach((array)$event['Participant'] as $participant):
                             if($participant['status'] == 2):
