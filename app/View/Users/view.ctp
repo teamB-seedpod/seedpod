@@ -92,7 +92,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<?php if($event['Event']['open_datetime'] > $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
 		<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-		<td><?php echo h(substr($event['Event']['open_datetime'], 0, 16)); ?> ~ <?php echo h(substr($event['Event']['close_datetime'], 0, 16)); ?></td>
+		<td><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></td>
 		<td><?php echo $event['User']['name']; ?></td>
 		<td><?php
 				$count=0;
@@ -131,7 +131,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<?php if($event['Event']['open_datetime'] < $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
 		<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-		<td><?php echo h(substr($event['Event']['open_datetime'], 0, 16)); ?> ~ <?php echo h(substr($event['Event']['close_datetime'], 0, 16)); ?></td>
+		<td><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></td>
 		<td><?php echo $event['User']['name']; ?></td>
 		<td><?php
 				$count=0;
@@ -186,7 +186,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<?php if($event['Event']['open_datetime'] > $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
 		<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-		<td><?php echo h(substr($event['Event']['open_datetime'], 0, 16)); ?> ~ <?php echo h(substr($event['Event']['close_datetime'], 0, 16)); ?></td>
+		<td><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></td>
 		<td><?php echo $event['User']['name']; ?></td>
 		<td><?php
 				$count=0;
@@ -225,7 +225,7 @@ $nowtime = date("Y-m-d H:i:s");
 		<?php if($event['Event']['open_datetime'] < $nowtime): ?>
 		<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
 		<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-		<td><?php echo h(substr($event['Event']['open_datetime'], 0, 16)); ?> ~ <?php echo h(substr($event['Event']['close_datetime'], 0, 16)); ?></td>
+		<td><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></td>
 		<td><?php echo $event['User']['name']; ?></td>
 		<td><?php
 				$count=0;

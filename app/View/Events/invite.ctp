@@ -7,11 +7,11 @@ echo '<form method="post" action="">';
 
 		//招待リストに入ってはいけない人を抽出する
 		for($j=0;$j<$event_num;$j++){
-			if((isset($user['Participant'][$j]['event_id'])) && ($user['Participant'][$j]['event_id'] == $event['Event']['id'])
-					&& (isset($user['User']['block_flg'])) && ($user['User']['block_flg'] == 0)
-					&& (isset($user['User']['del_flg'])) && ($user['User']['del_flg'] == 0)
-					&& (isset($user['User']['byebye_flg'])) && ($user['User']['byebye_flg'] == 0)
-					&& (isset($user['Participant'][$j]['del_flg'])) && ($user['Participant'][$j]['del_flg'] == 0)
+			if(((isset($user['Participant'][$j]['event_id'])) && ($user['Participant'][$j]['event_id'] == $event['Event']['id']))
+					|| ((isset($user['User']['block_flg'])) && ($user['User']['block_flg'] == 1))
+					|| ((isset($user['User']['del_flg'])) && ($user['User']['del_flg'] == 1))
+					|| ((isset($user['User']['byebye_flg'])) && ($user['User']['byebye_flg'] == 1))
+					|| ((isset($user['Participant'][$j]['del_flg'])) && ($user['Participant'][$j]['del_flg'] == 1))
 			){
 				$inviteNgId = $user['User']['id'];
 				$inviteNgName = $user['User']['name'];
@@ -27,7 +27,7 @@ echo '<form method="post" action="">';
 			$inviteOkName = $user['User']['name'];
 		}
 		if(isset($inviteOkId) && isset($inviteOkName) && ($inviteOkId != $loginUser['id'])){
-			echo '<input type="checkbox" name="'.$inviteOkId.'" value='.$inviteOkId.'>'.$inviteOkName.'<br/>';
+			echo '<p><input type="checkbox" name="'.$inviteOkId.'" value='.$inviteOkId.'>'.$inviteOkName.'</p>';
 		}
 		//招待リストをリセットする
 		$inviteOkId = null;

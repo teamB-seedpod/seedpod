@@ -47,7 +47,7 @@
 
 <hr><br />
 <dt>Date：</dt>
-	<dd><?php echo date('M.d.Y  H:m', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:m', strtotime($event['Event']['close_datetime'])); ?></dd>
+	<dd><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></dd>
 <dt>Hosting：</dt>
 <dd><?php echo $this->Html->link(h($hosting['User']['name']), array('controller' => 'users', 'action' => 'view', $hosting['User']['id'])); ?></dd>
 <dt>Place：</dt>
@@ -101,7 +101,7 @@
 	foreach($comments as $comment){
 		if($comment['Comment']['del_flg'] != 1){
 			echo "　　■".h($comment['Comment']['comment']).'---';
-			echo h($comment['Comment']['created']);
+			echo date('M.d.Y  H:i:s', strtotime($comment['Comment']['created']));
 			echo "(".h($comment['User']['name']).")　　";
 			if(isset($loginUser)){
 				if($comment['Comment']['user_id'] == $loginUser['id']){

@@ -113,7 +113,7 @@
 
 		$graduationDate = $UserInfo['User']['graduating_date'];
 		$graduationPersonName = $UserInfo['User']['name'];
-		$UserId = $UserInfo['User']['id'];
+		$userId = $UserInfo['User']['id'];
 		$block_flg = $UserInfo['User']['block_flg'];
 		$del_flg = $UserInfo['User']['del_flg'];
 		$byebye_flg = $UserInfo['User']['byebye_flg'];
@@ -172,7 +172,7 @@ $nowtime = date("Y-m-d H:i:s");
 			<?php if($event['Event']['open_datetime'] > $nowtime): ?>
 			<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
 			<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-			<td><?php echo date('M.d.Y  H:m', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:m', strtotime($event['Event']['close_datetime'])); ?></td>
+			<td><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></td>
 			<td>
 				<?php
 					echo $this->Html->link(h($event['User']['name']), array('controller' => 'users', 'action' => 'view', $event['User']['id']));
@@ -224,7 +224,7 @@ $nowtime = date("Y-m-d H:i:s");
 			<?php if($event['Event']['open_datetime'] < $nowtime): ?>
 				<td><?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?></td>
 				<td><?php echo $this->Html->link($event['Event']['title'], array('controller' => 'events', 'action' => 'detail', $event['Event']['id'])); ?></td>
-				<td><?php echo date('M.d.Y  H:m', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:m', strtotime($event['Event']['close_datetime'])); ?></td>
+				<td><?php echo date('M.d.Y  H:i', strtotime($event['Event']['open_datetime'])).'  〜  '.date('M.d.Y  H:i', strtotime($event['Event']['close_datetime'])); ?></td>
 				<td>
 					<?php
 						echo $this->Html->link(h($event['User']['name']), array('controller' => 'users', 'action' => 'view', $event['User']['id']));
