@@ -22,7 +22,8 @@
     ?>
 
     <?php foreach ($users as $user): ?>
-    <a href="/seedpod/users/view/<?php echo $user['User']['id'] ?>">
+    <a href="users/view/<?php echo $user['User']['id'] ?>">
+    
     <div class="col3">
         <p class="pic"><?php echo $this->Upload->uploadImage($user, 'User.img', array('style' => 'thumb')) ?></p>
         <p class="nickname"><?php echo h($user['User']['nickname']); ?></p>

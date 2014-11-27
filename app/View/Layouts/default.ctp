@@ -47,7 +47,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<div id="container">
 		<div id="header">
 
-            <?php echo '<a href="/seedpod/"><img src="/seedpod/img/logo_small.png"></a>'; ?>
+            <?php
+            echo $this->Html->image("logo_small.png", array(
+                "alt" => "seedpod",
+                'url' => array('controller' => 'events', 'action' => 'index')
+            ));           
+            ?>
             <div style="float:right;padding:10px;">
             <?php
                 if(isset($loginUser)):
@@ -57,11 +62,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     echo 'Welcome ';
                     echo h($loginUser['name']);
                     echo '! ';
-                    echo $this->Html->link('LOGOUT', '/users/logout');
+                    echo $this->Html->link('LOGOUT', array('controller' => 'users', 'action' => 'logout'));
                 else:
-                    echo $this->Html->link('LOGIN', '/users/login');
+                    echo $this->Html->link('LOGIN', array('controller' => 'users', 'action' => 'login'));
                     echo ' ';
-                    echo $this->Html->link('SIGN UP', '/users/add');
+                    echo $this->Html->link('SIGN UP', array('controller' => 'users', 'action' => 'add'));
                 endif;
             ?>
             </div>
@@ -80,9 +85,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			        <?php echo $this->Upload->uploadImage($loginUser, 'User.img', array('style'=>'thumb')); ?>
                     <h2><?php echo $loginUser['nickname'] ?></h2>
                 </div>
-
-                <?php echo '<p><a href="/seedpod/users/view/'.$loginUser['id'].'"><img src="/seedpod/img/human.png" width="13px">View User</a>'; ?>
-                <?php echo ' <a href="/seedpod/users/edit/'.$loginUser['id'].'"><img src="/seedpod/img/gross.png" width="13px">Edit User</a></p>'; ?>
+                <p>
+                <?php echo $this->Html->image("human.png", array('width' => '13px')); ?>
+                <?php echo $this->Html->link('View User', array('controller' => 'users', 'action' => 'view', $loginUser['id'])); ?>
+                <?php echo $this->Html->image("gross.png", array('width' => '13px')); ?>
+                <?php echo $this->Html->link('Edit User', array('controller' => 'users', 'action' => 'edit', $loginUser['id'])); ?>
+                </p>                
             </div>
 
             <div class="myevent">
@@ -91,7 +99,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <?php 
                 foreach((array)$loginMyOwnerEvents as $event):
                     if($event['Event']['open_datetime'] > $nowtime):
-                        echo '<li><a href="/seedpod/events/detail/'.$event['Event']['id'].'">'.$event['Event']['title'].'('.count($event['Participant']).')</a></li>';
+                        echo '<li>';
+                        echo $this->Html->link($event['Event']['title'].'('.count($event['Participant']).')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
+                        echo '</li>';
                     endif;
                 endforeach;
                 ?>
@@ -101,7 +111,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 if(isset($loginMyParticipantEvents)):
                 foreach((array)$loginMyParticipantEvents as $event):
                     if($event['Event']['open_datetime'] > $nowtime):
-                        echo '<li><a href="/seedpod/events/detail/'.$event['Event']['id'].'">'.$event['Event']['title'].'('.count($event['Participant']).')</a></li>';
+                        echo '<li>';
+                        echo $this->Html->link($event['Event']['title'].'('.count($event['Participant']).')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
+                        echo '</li>';
                     endif;
                 endforeach;
                 endif;
