@@ -1,7 +1,8 @@
 <div class="main">
     <h2>Let's Join SEEDPOD!</h2>
     <h3>This service only for Nexseed Students, Teachers, Staffs.</h3>
-    <h2><a href="/seedpod/users/add">SIGN UP NOW!</a></h2>
+    <h2><?php echo $this->Html->link('SIGN UP NOW!', '/users/add'); ?></h2>
+    
 </div>
 
 <div class="leftside">
