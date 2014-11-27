@@ -119,6 +119,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 endif;
                 ?>
 
+                <h4>Invited Event</h4>
+                <?php
+                if(isset($loginMyInvitedEvents)):
+                foreach((array)$loginMyInvitedEvents as $event):
+                    if($event['Event']['open_datetime'] > $nowtime):
+                        echo '<li>';
+                        echo $this->Html->link($event['Event']['title'].'('.count($event['Participant']).')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
+                        echo '</li>';
+                    endif;
+                endforeach;
+                endif;
+                ?>
+
             </div>
 
 			<div class="actions">
