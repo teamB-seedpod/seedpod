@@ -57,6 +57,9 @@ class UsersController extends AppController {
         $this->Paginator->settings = $this->paginate;
         $this->User->recursive = 0;
 
+        $this->set('total', $this->User->find('count', array(
+                'conditions' => array('del_flg' => '0'))));
+
         if ($this->request->is('post')) {
             $sort = $this->request->data['Sort']['group_id'];
             // パラメータをセッション変数に保存
