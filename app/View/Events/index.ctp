@@ -21,8 +21,8 @@
 						echo '  ';
 					}
 				}
-				$createdTime = $Info['Information']['created'];
-				$val1 = substr($createdTime,0,10);
+				$createdTime = date('M.d.Y  H:i', strtotime($Info['Information']['created']));
+				$val1 = substr($createdTime,0,11);
 				echo $val1;
 				echo '  ';
 				echo $this->Html->link($Info['Information']['title'],'/Information/view/'.$Info['Information']['id']);
@@ -74,6 +74,7 @@
 
 		for ($i = 0; $i < count($Birthdays); $i++) {		
 			$Birthdate = date("Y-m-d", $Birthdays[$i]['Tanjyoubi']);
+			$monEng = date('M', strtotime($Birthdays[$i]['Tanjyoubi']));
 			list($year, $mon, $day) = explode("-", $Birthdate); 
 		
 			$BirthdayPersonName = $Birthdays[$i]['namae'];
@@ -97,7 +98,7 @@
 			if($currenttime >= $timestart_birthday && $currenttime <= $timeend_birthday) {
 				if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 					echo '<li>';
-					echo $day.'/'.$mon.' is ';
+					echo $monEng.'.'.$day.' is ';
 					echo $this->Html->link(h($BirthdayPersonName), array('controller' => 'users', 'action' => 'view', $userId));
 					echo '\'s Birthday';
 					echo '</li>';
@@ -119,7 +120,7 @@
 		$byebye_flg = $UserInfo['User']['byebye_flg'];
 
 		list($year, $mon, $day) = explode("-", $graduationDate); 
-		
+		$monEngGraduate = date('M', strtotime($UserInfo['User']['graduating_date']));
 		$timeend_graduation = mktime(0, 0, 0, $mon, $day, $year);
 		$timestart_graduation = $timeend_graduation -604800;
 
@@ -136,7 +137,7 @@
 		if($currenttime >= $timestart_graduation && $currenttime <= $timeend_graduation){
 			if(($block_flg == 0) && ($del_flg == 0) && ($byebye_flg == 0)){
 				echo '<li>';
-				echo $day.'/'.$mon.' is ';
+				echo $monEngGraduate.'.'.$day.' is ';
 				echo $this->Html->link(h($graduationPersonName), array('controller' => 'users', 'action' => 'view', $userId));
 				echo '\'s graduation date!';
 				echo '</li>';
