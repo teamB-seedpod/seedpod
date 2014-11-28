@@ -63,11 +63,19 @@ class AppController extends Controller {
             $this->set('loginMyOwnerEvents', $this->Event->find('all', $options));
 
             //Setting for common-left: get myParticipant events data
-            $options = array('conditions' => array('Participant.user_id' => $loginUser['id']));
+            $options = array('conditions' => array('Participant.user_id' => $loginUser['id'], 'Participant.status' => 2));
             $participantEventIds = $this->Participant->find('all', $options);
-            if($participantEventIds !== array()) {
+            if($participantEventIds != array()) {
                 $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
                 $this->set('loginMyParticipantEvents', $participantEvents); 
+            }
+
+            //Setting for common-left: get myInvited events data
+            $options = array('conditions' => array('Participant.user_id' => $loginUser['id'], 'Participant.status' => 1));
+            $participantEventIds = $this->Participant->find('all', $options);
+            if($participantEventIds != array()) {
+                $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);
+                $this->set('loginMyInvitedEvents', $participantEvents); 
             }
 
             //Setting for miniCalender

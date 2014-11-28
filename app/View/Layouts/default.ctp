@@ -99,8 +99,16 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <?php 
                 foreach((array)$loginMyOwnerEvents as $event):
                     if($event['Event']['open_datetime'] > $nowtime):
+
+                        $participantCount = 0;
+                        foreach((array)$event['Participant'] as $participant):
+                            if($participant['status'] == 2):
+                                $participantCount ++;
+                            endif;
+                        endforeach;
+
                         echo '<li>';
-                        echo $this->Html->link($event['Event']['title'].'('.count($event['Participant']).')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
+                        echo $this->Html->link($event['Event']['title'].'('.$participantCount.')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
                         echo '</li>';
                     endif;
                 endforeach;
@@ -108,11 +116,40 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
                 <h4>Participant Event</h4>
                 <?php
+
                 if(isset($loginMyParticipantEvents)):
                 foreach((array)$loginMyParticipantEvents as $event):
                     if($event['Event']['open_datetime'] > $nowtime):
+                        $participantCount = 0;
+                        foreach((array)$event['Participant'] as $participant):
+                            if($participant['status'] == 2):
+                                $participantCount ++;
+                            endif;
+                        endforeach;
+
                         echo '<li>';
-                        echo $this->Html->link($event['Event']['title'].'('.count($event['Participant']).')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
+                        echo $this->Html->link($event['Event']['title'].'('.$participantCount.')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
+                        echo '</li>';
+                    endif;
+                endforeach;
+                endif;
+                ?>
+
+                <h4>Invited Event</h4>
+                <?php
+                if(isset($loginMyInvitedEvents)):
+                foreach((array)$loginMyInvitedEvents as $event):
+                    if($event['Event']['open_datetime'] > $nowtime):
+
+                        $participantCount = 0;
+                        foreach((array)$event['Participant'] as $participant):
+                            if($participant['status'] == 2):
+                                $participantCount ++;
+                            endif;
+                        endforeach;
+
+                        echo '<li>';
+                        echo $this->Html->link($event['Event']['title'].'('.$participantCount.')', array('controller' => 'events', 'action' => 'detail', $event['Event']['id']));
                         echo '</li>';
                     endif;
                 endforeach;

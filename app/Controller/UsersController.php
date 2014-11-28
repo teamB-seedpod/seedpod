@@ -57,6 +57,9 @@ class UsersController extends AppController {
         $this->Paginator->settings = $this->paginate;
         $this->User->recursive = 0;
 
+        $this->set('total', $this->User->find('count', array(
+                'conditions' => array('del_flg' => '0'))));
+
         if ($this->request->is('post')) {
             $sort = $this->request->data['Sort']['group_id'];
             // パラメータをセッション変数に保存
@@ -112,7 +115,7 @@ class UsersController extends AppController {
 	    //$this->set('myOwnerPastEvents', $this->Event->find('all', $option_past));
 
         //GET PARTICIPANT EVENT: FUTURE
-		$options = array('conditions' => array('Participant.user_id' => $id));
+		$options = array('conditions' => array('Participant.user_id' => $id,'Participant.status' => 2));
         $participantEventIds = $this->Participant->find('all', $options);
         if($participantEventIds !== array()) {
             $participantEvents = $this->Event->getMyParticipantEvent($participantEventIds);

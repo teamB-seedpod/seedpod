@@ -29,8 +29,10 @@ class Event extends AppModel{
 
     //FOR myPaarticipantEvent(/users/view)
     public function getMyParticipantEvent($participants) {
+        $i = 0;
         foreach($participants as $participant) {
-            $events = $this->find('all', array('conditions' => array('Event.id' => $participant['Participant']['event_id'])));
+            $events[$i] = $this->find('first', array('conditions' => array('Event.id' => $participant['Participant']['event_id'])));
+            $i ++;
         }
         return $events;
     }
