@@ -1,3 +1,7 @@
+.event_pic img {
+    max-width: 50%;
+}
+
 dt{
   font-size : 20px;
   font-weight : bold;

@@ -2,7 +2,7 @@
 
 <?php if($event['Event']['del_flg'] == 1){ throw new NotFoundException(__('Not allowed to access')); } ?>
 
-<?php echo $this->Upload->uploadImage($event, 'Event.img', array('style' => 'thumb')) ?>
+<p class="event_pic"><?php echo $this->Upload->uploadImage($event, 'Event.img') ?></p>
 <h2><?php echo h($event['Event']['title']); ?></h2>
 <?php
 	if(strtotime($event['Event']['open_datetime']) > strtotime(date("Y-m-d H:i:s"))){
